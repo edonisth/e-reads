@@ -1,0 +1,22 @@
+{
+  "id": "unique-book-id",
+  "title": "Book Title",
+  "author": "Author Name",
+  "coverUrl": "covers/book-cover.jpg",
+  "overview": "This is a comprehensive overview of the book that explains its main concepts and importance.",
+  "themes": [
+    {
+      "title": "Theme One Title",
+      "description": ["First paragraph about this theme.", "Second paragraph with more details."]
+    },
+    {
+      "title": "Theme Two Title",
+      "description": ["Description of the second key theme."]
+    }
+  ],
+  "quotes": [
+    "This is the first significant quote from the book.",
+    "This is another important quote that highlights key concepts.",
+    "A third memorable quote from the book."
+  ]
+} 

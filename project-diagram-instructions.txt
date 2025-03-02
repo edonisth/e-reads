@@ -1,0 +1,38 @@
+# Edonis Reads Project Diagram
+
+## Recommended Tools:
+- Draw.io (free, browser-based): https://app.diagrams.net/
+- Lucidchart (freemium): https://www.lucidchart.com/
+- Figma (freemium): https://www.figma.com/
+
+## Diagram Structure:
+
+1. Project Architecture
+   - Frontend Components
+     - HTML (index.html): Main structure
+     - CSS (style.css): Styling and themes
+     - JavaScript (script.js): Interactivity and data management
+   - Assets
+     - Book covers directory
+     - Default cover image
+
+2. Data Flow
+   - User interactions
+   - Local storage operations
+   - Book data structure
+   - Search functionality
+
+3. UI Components
+   - Navigation bar
+   - Sidebar with book list
+   - Main content area
+   - Book entry display
+   - Theme and quote sections
+   - Modal forms for adding/editing books
+
+4. Responsive Design
+   - Desktop layout
+   - Mobile layout adaptations
+
+## Save the completed diagram as:
+edonis-reads-diagram.jpg 

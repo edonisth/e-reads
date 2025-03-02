@@ -1,0 +1,68 @@
+# EDONIS READS PROJECT ARCHITECTURE
+
++---------------------------------------------+
+|                                             |
+|              FRONTEND LAYER                 |
+|                                             |
++-------------+-------------+-----------------+
+|   HTML      |    CSS      |   JavaScript    |
+| index.html  |  style.css  |   script.js     |
++-------------+-------------+-----------------+
+      |              |              |
+      v              v              v
++---------------------------------------------+
+|                                             |
+|              USER INTERFACE                 |
+|                                             |
++-----------+-------------+------------------+
+| Navigation|   Sidebar   |   Main Content   |
+|  - Search |  - Book List|   - Welcome      |
+|  - Theme  |  - Add Book |   - Book Details |
+|  Toggle   |  - Upload   |   - Themes       |
+|           |    Cover    |   - Quotes       |
++-----------+-------------+------------------+
+                  |                |
+                  v                v
++---------------------------------------------+
+|                                             |
+|               DATA MANAGEMENT               |
+|                                             |
++-------------+-------------+-----------------+
+| Local       | Book Data   | User           |
+| Storage     | Structure   | Interactions   |
+| - Custom    | - ID        | - Search       |
+|   Books     | - Title     | - Add/Edit     |
+| - Settings  | - Author    | - Theme Toggle |
+|             | - Themes    | - Navigation   |
+|             | - Quotes    |                |
++-------------+-------------+-----------------+
+      |              |              |
+      v              v              v
++---------------------------------------------+
+|                                             |
+|                 ASSETS                      |
+|                                             |
++-------------+-------------+-----------------+
+| Book Covers | Default     | Icons &        |
+| Directory   | Images      | External       |
+|             |             | Resources      |
++-------------+-------------+-----------------+
+
+RESPONSIVE DESIGN:
++------------------+       +------------------+
+|                  |       |                  |
+|  Desktop Layout  | <---> | Mobile Layout    |
+|  - Sidebar       |       | - Collapsed      |
+|    visible       |       |   sidebar        |
+|  - Multi-column  |       | - Single column  |
+|    grid          |       |   layout         |
+|                  |       |                  |
++------------------+       +------------------+
+
+USER FLOW:
+1. Load application
+2. Browse books in sidebar
+3. Select book to view details
+4. Search for specific content
+5. Add/edit books
+6. Toggle light/dark theme 
