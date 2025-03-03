@@ -3,9 +3,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const bookList = document.getElementById('book-list');
     const bookUpload = document.getElementById('book-upload');
     const mainContent = document.querySelector('.content');
+    const sidebar = document.querySelector('.sidebar');
     
     // Load books from localStorage
     loadBooksFromStorage();
+    
+    // Initialize featured books section
+    updateFeaturedBooks();
+    
+    // Initialize sidebar scroll detection
+    initSidebarScrollDetection();
     
     // Function to show a specific book content
     function showBookContent(bookId) {
@@ -204,28 +211,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Function to add book to featured section
     function addBookToFeatured(bookData) {
-        if (!welcomeSection) return;
-        
-        const bookGrid = welcomeSection.querySelector('.book-grid');
-        if (!bookGrid) return;
-        
-        const featuredCard = document.createElement('div');
-        featuredCard.className = 'featured-book-card';
-        featuredCard.setAttribute('onclick', `window.location.hash='${bookData.id}'`);
-        
-        featuredCard.innerHTML = `
-            <img src="${bookData.coverUrl}" alt="${bookData.title} Cover" loading="lazy">
-            <h3>${bookData.title}</h3>
-            <p>${bookData.author}</p>
-        `;
-        
-        // Add the new book to the start of the grid
-        bookGrid.insertBefore(featuredCard, bookGrid.firstChild);
-        
-        // Keep only the latest three books
-        while (bookGrid.children.length > 3) {
-            bookGrid.removeChild(bookGrid.lastChild);
-        }
+        // Instead of adding individual books, just update the featured books section
+        // to show the last 3 books from the sidebar
+        updateFeaturedBooks();
     }
     
     // Function to save book to localStorage
@@ -241,12 +229,12 @@ document.addEventListener('DOMContentLoaded', () => {
         books.forEach(book => {
             addBookToSidebar(book);
             addBookToMainContent(book);
-            addBookToFeatured(book);
+            // We no longer need to call addBookToFeatured here
+            // as we'll update the featured books section all at once
         });
     }
 
     // Sidebar toggle functionality
-    const sidebar = document.querySelector('.sidebar');
     const toggleButton = document.getElementById('sidebarToggle');
     const icon = toggleButton.querySelector('i');
 
@@ -255,6 +243,31 @@ document.addEventListener('DOMContentLoaded', () => {
             sidebar.classList.toggle('collapsed');
         } else {
             sidebar.classList.toggle('active');
+        }
+    }
+
+    // Check if sidebar is scrolled to bottom
+    function initSidebarScrollDetection() {
+        const sidebar = document.querySelector('.sidebar');
+        
+        // Check initial scroll position
+        checkSidebarScroll(sidebar);
+        
+        // Add scroll event listener
+        sidebar.addEventListener('scroll', function() {
+            checkSidebarScroll(this);
+        });
+    }
+
+    // Check if sidebar is scrolled to bottom
+    function checkSidebarScroll(sidebar) {
+        // Calculate if scrolled to bottom (with a small threshold)
+        const isAtBottom = sidebar.scrollHeight - sidebar.scrollTop - sidebar.clientHeight < 10;
+        
+        if (isAtBottom) {
+            sidebar.classList.add('at-bottom');
+        } else {
+            sidebar.classList.remove('at-bottom');
         }
     }
 
@@ -615,8 +628,47 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             welcomeSection.style.display = 'block';
             welcomeSection.classList.add('active');
+            
+            // Update featured books to show only the last 3
+            updateFeaturedBooks();
         }
     };
+
+    // Function to update featured books to show only the last 3
+    function updateFeaturedBooks() {
+        const bookGrid = document.querySelector('.book-grid');
+        if (!bookGrid) return;
+        
+        // Get all book items from the sidebar
+        const bookItems = Array.from(document.querySelectorAll('.book-item'));
+        
+        // Clear existing featured books
+        bookGrid.innerHTML = '';
+        
+        // Get the last 3 books (or fewer if there are less than 3)
+        const lastThreeBooks = bookItems.slice(-3).reverse();
+        
+        // Add the last 3 books to the featured section
+        lastThreeBooks.forEach(bookItem => {
+            const bookLink = bookItem.querySelector('.book-link');
+            const bookId = bookLink.getAttribute('data-book-id');
+            const bookTitle = bookItem.querySelector('.book-title').textContent;
+            const bookAuthor = bookItem.querySelector('.book-author').textContent;
+            const bookCover = bookItem.querySelector('img').getAttribute('src');
+            
+            const featuredCard = document.createElement('div');
+            featuredCard.className = 'featured-book-card';
+            featuredCard.setAttribute('onclick', `window.location.hash='${bookId}'`);
+            
+            featuredCard.innerHTML = `
+                <img src="${bookCover}" alt="${bookTitle} Cover" loading="lazy">
+                <h3>${bookTitle}</h3>
+                <p>${bookAuthor}</p>
+            `;
+            
+            bookGrid.appendChild(featuredCard);
+        });
+    }
 
     // Function to update highlights counter
     function updateHighlightsCounter() {
@@ -1215,13 +1267,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Call this function after loading books
-    document.addEventListener('DOMContentLoaded', () => {
-        // ... existing code ...
+    // Call this function when the DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // ... existing DOMContentLoaded code ...
         
-        // Setup edit buttons after loading books
-        setTimeout(() => {
-            setupBookEditButtons();
-        }, 500);
+        // Initialize sidebar scroll detection
+        initSidebarScrollDetection();
     });
 });
