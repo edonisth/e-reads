@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.querySelector('.content');
     const sidebar = document.querySelector('.sidebar');
     
+    // Remove any remaining Ecce Homo elements
+    removeEcceHomoElements();
+    
     // Load books from localStorage
     loadBooksFromStorage();
     
@@ -14,9 +17,44 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize sidebar scroll detection
     initSidebarScrollDetection();
     
+    // Function to remove any remaining Ecce Homo elements
+    function removeEcceHomoElements() {
+        // Remove from sidebar
+        const ecceHomoItem = document.querySelector('.book-link[data-book-id="eccehomo"]');
+        if (ecceHomoItem) {
+            const listItem = ecceHomoItem.closest('.book-item');
+            if (listItem) {
+                listItem.remove();
+                console.log('Removed Ecce Homo from sidebar');
+            }
+        }
+        
+        // Remove from main content
+        const ecceHomoContent = document.getElementById('eccehomo');
+        if (ecceHomoContent) {
+            ecceHomoContent.remove();
+            console.log('Removed Ecce Homo content section');
+        }
+        
+        // Remove from localStorage if present
+        let books = JSON.parse(localStorage.getItem('customBooks') || '[]');
+        const filteredBooks = books.filter(book => book.id !== 'eccehomo');
+        if (books.length !== filteredBooks.length) {
+            localStorage.setItem('customBooks', JSON.stringify(filteredBooks));
+            console.log('Removed Ecce Homo from localStorage');
+        }
+    }
+    
     // Function to show a specific book content
     function showBookContent(bookId) {
         console.log('showBookContent called with bookId:', bookId);
+        
+        // Add check to ignore eccehomo book ID
+        if (bookId === 'eccehomo') {
+            console.log('Ignoring eccehomo book ID');
+            if (welcomeSection) welcomeSection.classList.add('active');
+            return;
+        }
         
         // Hide welcome section and all book contents
         if (welcomeSection) welcomeSection.classList.remove('active');
@@ -101,13 +139,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to add a new book
     function addNewBook(bookData) {
         // Validate required fields
-        if (!bookData.id || !bookData.title || !bookData.author || !bookData.coverUrl) {
-            alert('Book data is missing required fields (id, title, author, coverUrl)');
+        if (!bookData.id || !bookData.title || !bookData.author) {
+            alert('Book data is missing required fields (id, title, author)');
             return;
         }
         
         // Check if book with this ID already exists
-        if (document.getElementById(bookData.id)) {
+        if (document.querySelector(`.book-link[data-book-id="${bookData.id}"]`)) {
             alert(`A book with ID "${bookData.id}" already exists.`);
             return;
         }
@@ -118,14 +156,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add to main content
         addBookToMainContent(bookData);
         
-        // Add to featured books in welcome section
-        addBookToFeatured(bookData);
-        
         // Save to localStorage
         saveBookToStorage(bookData);
         
         // Update highlights counter
         updateHighlightsCounter();
+        
+        // Update featured books
+        updateFeaturedBooks();
         
         // Show success message
         alert(`Book "${bookData.title}" has been added successfully!`);
@@ -226,11 +264,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to load books from localStorage
     function loadBooksFromStorage() {
         const books = JSON.parse(localStorage.getItem('customBooks') || '[]');
+
         books.forEach(book => {
             addBookToSidebar(book);
             addBookToMainContent(book);
-            // We no longer need to call addBookToFeatured here
-            // as we'll update the featured books section all at once
         });
     }
 
@@ -696,7 +733,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const reader = new FileReader();
             reader.onload = function(event) {
                 coverImageData = event.target.result;
-                alert('Cover image uploaded successfully! It will be used for the next book you add.');
+                // Now show the form with the uploaded cover
+                showBookEntryForm();
             };
             reader.readAsDataURL(file);
         });
@@ -705,9 +743,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add manual book entry functionality
     const manualEntryBtn = document.getElementById('manual-book-entry');
     if (manualEntryBtn) {
-        manualEntryBtn.addEventListener('click', function() {
-            // Create a modal or form for manual entry
-            showBookEntryForm();
+        manualEntryBtn.removeEventListener('click', showBookEntryForm); // Remove any existing handlers
+        manualEntryBtn.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent default button behavior
+            // Show the cover upload dialog instead of the form
+            document.getElementById('cover-upload').click();
         });
     }
 
@@ -717,7 +757,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const modal = document.createElement('div');
         modal.className = 'book-entry-modal';
         
-        // Create form HTML
+        // Create form HTML with the uploaded cover preview
         modal.innerHTML = `
             <div class="book-entry-form">
                 <h2>Add New Book</h2>
@@ -784,6 +824,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Handle cancel
         document.getElementById('cancel-entry').addEventListener('click', function() {
             document.body.removeChild(modal);
+            coverImageData = null; // Reset cover image data on cancel
         });
     }
 
@@ -1274,4 +1315,440 @@ document.addEventListener('DOMContentLoaded', () => {
         // Initialize sidebar scroll detection
         initSidebarScrollDetection();
     });
+
+    // Make sure we only have one DOMContentLoaded handler for the add book functionality
+    const initAddBookButton = function() {
+        // Find the add book container
+        const addBookContainer = document.querySelector('.add-book-container');
+        
+        if (addBookContainer) {
+            console.log('Initializing add book button');
+            // Replace with improved version
+            addBookContainer.innerHTML = `
+                <button id="add-book-btn" class="add-book-button">
+                    <i class="fas fa-plus"></i> Add New Book
+                </button>
+                <input type="file" id="book-upload" accept=".json" class="file-input" aria-label="Upload book data" style="display: none;">
+                <input type="file" id="cover-upload" accept="image/*" class="file-input" aria-label="Upload book cover" style="display: none;">
+            `;
+            
+            // Set up the new button handler
+            const addBookBtn = document.getElementById('add-book-btn');
+            if (addBookBtn) {
+                addBookBtn.addEventListener('click', showAddBookOptions);
+            }
+            
+            // Re-attach file upload handlers since we replaced the elements
+            const bookUpload = document.getElementById('book-upload');
+            if (bookUpload) {
+                bookUpload.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        try {
+                            const bookData = JSON.parse(event.target.result);
+                            addNewBook(bookData);
+                            // Reset file input
+                            bookUpload.value = '';
+                        } catch (error) {
+                            alert('Invalid book data format. Please upload a valid JSON file.');
+                            console.error('Error parsing book data:', error);
+                        }
+                    };
+                    reader.readAsText(file);
+                });
+            }
+        }
+    };
+
+    // Call this function once when the DOM is loaded
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAddBookButton);
+    } else {
+        // DOM already loaded, run the function now
+        initAddBookButton();
+    }
+
+    // Function to show add book options in a modal
+    function showAddBookOptions() {
+        // Create modal container
+        const modal = document.createElement('div');
+        modal.className = 'book-entry-modal';
+        
+        // Create options HTML
+        modal.innerHTML = `
+            <div class="book-entry-form add-options-form">
+                <h2>Add New Book</h2>
+                <p>Choose how you want to add a book:</p>
+                
+                <div class="add-options">
+                    <button id="manual-entry-option" class="option-button">
+                        <i class="fas fa-edit"></i>
+                        <span>Create Manually</span>
+                        <p>Add a book by entering details yourself</p>
+                    </button>
+                    
+                    <button id="json-upload-option" class="option-button">
+                        <i class="fas fa-file-upload"></i>
+                        <span>Upload JSON</span>
+                        <p>Import a book from a JSON file</p>
+                    </button>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" id="cancel-options">Cancel</button>
+                </div>
+            </div>
+        `;
+        
+        // Add to document
+        document.body.appendChild(modal);
+        
+        // Handle manual entry option
+        document.getElementById('manual-entry-option').addEventListener('click', function() {
+            document.body.removeChild(modal);
+            showEnhancedBookEntryForm();
+        });
+        
+        // Handle JSON upload option
+        document.getElementById('json-upload-option').addEventListener('click', function() {
+            document.body.removeChild(modal);
+            document.getElementById('book-upload').click();
+        });
+        
+        // Handle cancel
+        document.getElementById('cancel-options').addEventListener('click', function() {
+            document.body.removeChild(modal);
+        });
+    }
+
+    // Enhanced book entry form with better UX
+    function showEnhancedBookEntryForm(existingData = null) {
+        // Create modal container
+        const modal = document.createElement('div');
+        modal.className = 'book-entry-modal';
+        
+        // Default values
+        const bookData = existingData || {
+            id: '',
+            title: '',
+            author: '',
+            overview: '',
+            coverUrl: null,
+            themes: [],
+            quotes: []
+        };
+        
+        // Create form HTML with improved layout
+        modal.innerHTML = `
+            <div class="book-entry-form enhanced">
+                <h2>${existingData ? 'Edit Book' : 'Add New Book'}</h2>
+                
+                <form id="enhanced-book-form">
+                    <div class="form-layout">
+                        <div class="form-left">
+                            <div class="form-group">
+                                <label for="book-id">Book ID (no spaces):</label>
+                                <input type="text" id="book-id" value="${bookData.id}" required 
+                                    placeholder="e.g., my-book-title">
+                                <p class="field-hint">This will be used in URLs. Use only letters, numbers, and hyphens.</p>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="book-title">Title:</label>
+                                <input type="text" id="book-title" value="${bookData.title}" required
+                                    placeholder="Enter book title">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="book-author">Author:</label>
+                                <input type="text" id="book-author" value="${bookData.author}" required
+                                    placeholder="Enter author name">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="book-overview">Overview:</label>
+                                <textarea id="book-overview" rows="6" 
+                                    placeholder="Enter a brief overview of the book">${bookData.overview}</textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-right">
+                            <div class="cover-upload-container">
+                                <div class="cover-preview ${bookData.coverUrl ? 'has-image' : ''}">
+                                    ${bookData.coverUrl ? 
+                                        `<img src="${bookData.coverUrl}" alt="Book cover preview">` : 
+                                        `<div class="no-cover">
+                                            <i class="fas fa-book"></i>
+                                            <p>No cover image</p>
+                                        </div>`
+                                    }
+                                </div>
+                                
+                                <label for="cover-upload-input" class="cover-upload-btn">
+                                    <i class="fas fa-upload"></i> Upload Cover Image
+                                </label>
+                                <input type="file" id="cover-upload-input" accept="image/*" class="file-input">
+                                
+                                <p class="field-hint">Recommended size: 300x450 pixels</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Themes Section -->
+                    <div class="themes-section">
+                        <h3>Themes <button type="button" id="add-theme-btn" class="small-btn"><i class="fas fa-plus"></i> Add Theme</button></h3>
+                        <div id="themes-container">
+                            ${bookData.themes.map((theme, index) => `
+                                <div class="theme-item" data-index="${index}">
+                                    <div class="theme-header">
+                                        <input type="text" class="theme-title" value="${theme.title}" placeholder="Theme title">
+                                        <button type="button" class="remove-theme-btn"><i class="fas fa-times"></i></button>
+                                    </div>
+                                    <div class="theme-descriptions">
+                                        ${theme.description.map((desc, descIndex) => `
+                                            <textarea class="theme-description" data-desc-index="${descIndex}" 
+                                                placeholder="Theme description">${desc}</textarea>
+                                        `).join('')}
+                                    </div>
+                                    <button type="button" class="add-desc-btn"><i class="fas fa-plus"></i> Add Description</button>
+                                </div>
+                            `).join('') || ''}
+                        </div>
+                    </div>
+                    
+                    <!-- Quotes Section -->
+                    <div class="quotes-section">
+                        <h3>Quotes <button type="button" id="add-quote-btn" class="small-btn"><i class="fas fa-plus"></i> Add Quote</button></h3>
+                        <div id="quotes-container">
+                            ${bookData.quotes.map((quote, index) => `
+                                <div class="quote-item" data-index="${index}">
+                                    <textarea class="quote-text" placeholder="Enter a memorable quote">${quote}</textarea>
+                                    <button type="button" class="remove-quote-btn"><i class="fas fa-times"></i></button>
+                                </div>
+                            `).join('') || ''}
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" id="cancel-entry">Cancel</button>
+                        <button type="submit" class="primary-btn">Save Book</button>
+                    </div>
+                </form>
+            </div>
+        `;
+        
+        // Add to document
+        document.body.appendChild(modal);
+        
+        // Set up cover image upload
+        const coverUploadInput = document.getElementById('cover-upload-input');
+        const coverPreview = modal.querySelector('.cover-preview');
+        
+        coverUploadInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                bookData.coverUrl = event.target.result;
+                coverPreview.innerHTML = `<img src="${bookData.coverUrl}" alt="Book cover preview">`;
+                coverPreview.classList.add('has-image');
+            };
+            reader.readAsDataURL(file);
+        });
+        
+        // Set up theme management
+        const themesContainer = document.getElementById('themes-container');
+        
+        // Add theme button
+        document.getElementById('add-theme-btn').addEventListener('click', function() {
+            addNewTheme(themesContainer);
+        });
+        
+        // Set up existing theme buttons
+        setupThemeButtons(modal);
+        
+        // Set up quote management
+        const quotesContainer = document.getElementById('quotes-container');
+        
+        // Add quote button
+        document.getElementById('add-quote-btn').addEventListener('click', function() {
+            addNewQuote(quotesContainer);
+        });
+        
+        // Set up existing quote buttons
+        setupQuoteButtons(modal);
+        
+        // Handle form submission
+        const form = document.getElementById('enhanced-book-form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect basic info
+            const updatedBookData = {
+                id: document.getElementById('book-id').value.trim().replace(/\s+/g, '-'),
+                title: document.getElementById('book-title').value.trim(),
+                author: document.getElementById('book-author').value.trim(),
+                overview: document.getElementById('book-overview').value.trim(),
+                coverUrl: bookData.coverUrl || 'covers/default-cover.jpg',
+                themes: [],
+                quotes: []
+            };
+            
+            // Collect themes
+            modal.querySelectorAll('.theme-item').forEach(themeItem => {
+                const themeTitle = themeItem.querySelector('.theme-title').value.trim();
+                if (!themeTitle) return; // Skip empty themes
+                
+                const descriptions = [];
+                themeItem.querySelectorAll('.theme-description').forEach(descEl => {
+                    const descText = descEl.value.trim();
+                    if (descText) descriptions.push(descText);
+                });
+                
+                if (descriptions.length > 0) {
+                    updatedBookData.themes.push({
+                        title: themeTitle,
+                        description: descriptions
+                    });
+                }
+            });
+            
+            // Collect quotes
+            modal.querySelectorAll('.quote-item').forEach(quoteItem => {
+                const quoteText = quoteItem.querySelector('.quote-text').value.trim();
+                if (quoteText) {
+                    updatedBookData.quotes.push(quoteText);
+                }
+            });
+            
+            // Validate
+            if (!updatedBookData.id || !updatedBookData.title || !updatedBookData.author) {
+                alert('Please fill in all required fields (ID, Title, and Author)');
+                return;
+            }
+            
+            // Add or update the book
+            if (existingData) {
+                updateExistingBook(updatedBookData);
+            } else {
+                addNewBook(updatedBookData);
+            }
+            
+            // Close modal
+            document.body.removeChild(modal);
+        });
+        
+        // Handle cancel
+        document.getElementById('cancel-entry').addEventListener('click', function() {
+            document.body.removeChild(modal);
+        });
+    }
+
+    // Helper function to add a new theme
+    function addNewTheme(container) {
+        const themeIndex = container.querySelectorAll('.theme-item').length;
+        
+        const themeEl = document.createElement('div');
+        themeEl.className = 'theme-item';
+        themeEl.setAttribute('data-index', themeIndex);
+        
+        themeEl.innerHTML = `
+            <div class="theme-header">
+                <input type="text" class="theme-title" placeholder="Theme title">
+                <button type="button" class="remove-theme-btn"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="theme-descriptions">
+                <textarea class="theme-description" data-desc-index="0" placeholder="Theme description"></textarea>
+            </div>
+            <button type="button" class="add-desc-btn"><i class="fas fa-plus"></i> Add Description</button>
+        `;
+        
+        container.appendChild(themeEl);
+        
+        // Set up buttons
+        setupThemeItemButtons(themeEl);
+    }
+
+    // Helper function to set up theme buttons
+    function setupThemeButtons(container) {
+        // Set up remove theme buttons
+        container.querySelectorAll('.remove-theme-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const themeItem = this.closest('.theme-item');
+                themeItem.remove();
+            });
+        });
+        
+        // Set up add description buttons
+        container.querySelectorAll('.add-desc-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const themeItem = this.closest('.theme-item');
+                const descriptionsContainer = themeItem.querySelector('.theme-descriptions');
+                const descIndex = descriptionsContainer.querySelectorAll('.theme-description').length;
+                
+                const textarea = document.createElement('textarea');
+                textarea.className = 'theme-description';
+                textarea.setAttribute('data-desc-index', descIndex);
+                textarea.placeholder = 'Theme description';
+                
+                descriptionsContainer.appendChild(textarea);
+            });
+        });
+    }
+
+    // Helper function to set up buttons for a single theme item
+    function setupThemeItemButtons(themeItem) {
+        // Set up remove theme button
+        themeItem.querySelector('.remove-theme-btn').addEventListener('click', function() {
+            themeItem.remove();
+        });
+        
+        // Set up add description button
+        themeItem.querySelector('.add-desc-btn').addEventListener('click', function() {
+            const descriptionsContainer = themeItem.querySelector('.theme-descriptions');
+            const descIndex = descriptionsContainer.querySelectorAll('.theme-description').length;
+            
+            const textarea = document.createElement('textarea');
+            textarea.className = 'theme-description';
+            textarea.setAttribute('data-desc-index', descIndex);
+            textarea.placeholder = 'Theme description';
+            
+            descriptionsContainer.appendChild(textarea);
+        });
+    }
+
+    // Helper function to add a new quote
+    function addNewQuote(container) {
+        const quoteIndex = container.querySelectorAll('.quote-item').length;
+        
+        const quoteEl = document.createElement('div');
+        quoteEl.className = 'quote-item';
+        quoteEl.setAttribute('data-index', quoteIndex);
+        
+        quoteEl.innerHTML = `
+            <textarea class="quote-text" placeholder="Enter a memorable quote"></textarea>
+            <button type="button" class="remove-quote-btn"><i class="fas fa-times"></i></button>
+        `;
+        
+        container.appendChild(quoteEl);
+        
+        // Set up remove button
+        quoteEl.querySelector('.remove-quote-btn').addEventListener('click', function() {
+            quoteEl.remove();
+        });
+    }
+
+    // Helper function to set up quote buttons
+    function setupQuoteButtons(container) {
+        container.querySelectorAll('.remove-quote-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const quoteItem = this.closest('.quote-item');
+                quoteItem.remove();
+            });
+        });
+    }
 });

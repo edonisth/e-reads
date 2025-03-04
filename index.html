@@ -62,11 +62,10 @@
         </label>
         <input type="file" id="book-upload" accept=".json" class="file-input" aria-label="Upload book data">
         
-        <!-- Add this new input for cover upload -->
-        <input type="file" id="cover-upload" accept="image/*" class="file-input" aria-label="Upload book cover">
+        <!-- Cover upload input -->
+        <input type="file" id="cover-upload" accept="image/*" class="file-input" aria-label="Upload book cover" style="display: none;">
         
-        <!-- Add a manual book entry option -->
-        <button id="manual-book-entry" class="add-book-button" style="margin-top: 10px;">
+        <button id="manual-book-entry" class="add-book-button" style="margin-top: 10px;" onclick="document.getElementById('cover-upload').click();">
           <i class="fas fa-edit"></i> Create Book Entry
         </button>
       </div>
@@ -1849,9 +1848,6 @@
                 <p>"The convoluted wording of legalisms grew up around the necessity to hide from ourselves the violence we intend toward each other. Between depriving a man of one hour from his life and depriving him of his life there exists only a difference of degree."</p>
               </blockquote>
               <blockquote class="quote-card">
-                <p>"Prophets have a way of dying by violence."</p>
-              </blockquote>
-              <blockquote class="quote-card">
                 <p>"There exists no separation between gods and men; one blends softly casual into the other."</p>
               </blockquote>
               <blockquote class="quote-card">
@@ -1977,7 +1973,6 @@
           </section>
         </article>
       </section>
-
     </main>
 
     <!-- Footer -->
