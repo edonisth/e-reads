@@ -2664,34 +2664,34 @@ body.light-mode .book-content[data-book-id="childrenofdune"] .theme-list h3 {
     flex-direction: column;
     align-items: center;
     padding: 2rem 1rem;
-    background: rgba(26, 26, 46, 0.6);
-    border: 1px solid #445a95;
+    background: rgba(68, 90, 149, 0.6); /* Brighter background */
+    border: 1px solid rgba(68, 90, 149, 0.3);
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .option-button:hover {
-    background: rgba(68, 90, 149, 0.3);
+    background: rgba(68, 90, 149, 0.8); /* Darker on hover */
     transform: translateY(-5px);
 }
 
 .option-button i {
     font-size: 2.5rem;
     margin-bottom: 1rem;
-    color: #6c72ff;
+    color: #ffffff; /* Brighter icon color */
 }
 
 .option-button span {
     font-size: 1.2rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
+    color: #ffffff; /* Brighter text color */
 }
 
 .option-button p {
     font-size: 0.9rem;
-    color: #8888AA;
-    text-align: center;
+    color: #e0e0e0; /* Lighter text for description */
 }
 
 .primary-btn {
