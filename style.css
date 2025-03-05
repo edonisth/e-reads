@@ -2808,3 +2808,33 @@ body.light-mode .primary-btn:hover {
         padding: 1.5rem;
     }
 }
+
+.easter-egg {
+    width: 100px; /* Width of the egg */
+    height: 150px; /* Height of the egg */
+    background: linear-gradient(135deg, #ffcc00, #ff6699, #66ccff, #ffcc00); /* Colorful gradient */
+    border-radius: 50% 50% 40% 40%; /* Egg shape */
+    position: relative;
+    animation: rotate 5s linear infinite; /* Rotation animation */
+    margin: 20px auto; /* Center the egg */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.rabbit-image {
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust position to center */
+    width: 150px; /* Increased size of the rabbit */
+    height: auto; /* Maintain aspect ratio */
+    z-index: 1; /* Ensure the rabbit is above the egg */
+}

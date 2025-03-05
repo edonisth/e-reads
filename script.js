@@ -1751,4 +1751,43 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // Add this near the top of your DOMContentLoaded event handler
+    async function loadAllBooks() {
+        try {
+            const response = await fetch('data/books/index.json');
+            const bookList = await response.json();
+            
+            for (const bookId of bookList) {
+                try {
+                    const bookResponse = await fetch(`data/books/${bookId}.json`);
+                    const bookData = await bookResponse.json();
+                    addBookToSidebar(bookData);
+                    addBookToMainContent(bookData);
+                } catch (error) {
+                    console.error(`Error loading book ${bookId}:`, error);
+                }
+            }
+            
+            // After loading all books, update the UI
+            updateHighlightsCounter();
+            updateFeaturedBooks();
+            
+            // Show welcome section by default
+            showWelcomeSection();
+        } catch (error) {
+            console.error('Error loading book index:', error);
+        }
+    }
+
+    // Call this when the page loads
+    loadAllBooks();
+
+    // Add click event listener to the Easter egg
+    const easterEgg = document.getElementById('easterEgg');
+    if (easterEgg) {
+        easterEgg.addEventListener('click', () => {
+            alert("You followed the white rabbit");
+        });
+    }
 });

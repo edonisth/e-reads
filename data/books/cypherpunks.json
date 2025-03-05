@@ -1,0 +1,27 @@
+{
+  "id": "cypherpunks",
+  "title": "Cypherpunks",
+  "author": "Julian Assange",
+  "coverUrl": "covers/cypherpunks-cover.jpg",
+  "overview": "The book asserts that states fundamentally operate through the threat or application of violence. Property rights, taxation, censorship, and intellectual property laws are all enforced by state-sanctioned coercion.",
+  "themes": [
+    {
+      "title": "The State as a System of Coercive Violence",
+      "description": [
+        "The book argues that the foundation of state power lies in its ability to enforce laws and regulations through coercion."
+      ]
+    },
+    {
+      "title": "Encryption as Non-Violent Resistance",
+      "description": [
+        "Cryptography is framed as a revolutionary tool to neutralize state violence."
+      ]
+    }
+    // ... other themes
+  ],
+  "quotes": [
+    "First, recall that states are systems through which coercive force flows. Factions within a state may compete for support… but the underpinnings of states are the systematic application, and avoidance, of violence.",
+    "Cryptography is the ultimate form of non-violent direct action.",
+    // ... other quotes
+  ]
+} 

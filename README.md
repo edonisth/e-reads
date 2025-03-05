@@ -1,21 +1,25 @@
-# E-Reads: Your Personal Kindle Highlights Manager
+# Edonis Reads: Your Personal Digital Library
 
-![E-Reads](https://img.shields.io/badge/E--Reads-v1.0-blue)
+![Edonis Reads](https://img.shields.io/badge/Edonis%20Reads-v1.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 ## 📚 Overview
 
-E-Reads is a web application designed to help you organize, manage, and access your Kindle highlights and notes in one beautiful interface. Create a digital library of your reading materials, organize books by themes, and quickly search through all your highlights.
+Edonis Reads is a personal web application designed to help organize, manage, and access my collection of books, highlights, and notes in one beautiful interface. Create a digital library of your reading materials, organize books by themes, and quickly search through all your highlights. While this project is primarily for my own use, I welcome anyone who is interested to fork it and make it their own!
 
 ## ✨ Features
 
-- **Digital Book Library**: Upload and organize your books in a clean, intuitive sidebar
-- **Highlight Management**: Store and categorize highlights and notes from your books
-- **Theme Organization**: Group your highlights by themes and topics for easy reference
-- **Full-Text Search**: Quickly find specific highlights across your entire library
-- **Responsive Design**: Access your library on any device with a beautiful, adaptive interface
-- **Dark/Light Mode**: Choose your preferred viewing experience
-- **No Backend Required**: All data is stored locally in your browser
+- **Digital Book Library**: Upload and organize your books in a clean, intuitive sidebar.
+- **Detailed Book Entries**: Each book includes:
+  - Overview/summary
+  - Key themes with detailed explanations
+  - Significant quotes
+  - Literary and historical significance
+- **Highlight Management**: Store and categorize highlights and notes from your books.
+- **Theme Switching**: Toggle between light and dark modes for comfortable reading in any environment.
+- **Full-Text Search**: Quickly find specific highlights across your entire library.
+- **Responsive Design**: Access your library on any device with a beautiful, adaptive interface.
+- **No Backend Required**: All data is stored locally in your browser.
 
 ## 🖥️ Screenshots
 
@@ -26,7 +30,7 @@ E-Reads is a web application designed to help you organize, manage, and access y
 ### Prerequisites
 
 - A modern web browser (Chrome, Firefox, Safari, Edge)
-- Your Kindle highlights and notes (exported from your Kindle device or app)
+- Your book highlights and notes (exported from your Kindle device or app)
 
 ### Installation
 
@@ -44,7 +48,7 @@ E-Reads is a web application designed to help you organize, manage, and access y
 
 ### Using with a Local Server
 
-For the best experience, you can run E-Reads using a local server:
+For the best experience, you can run Edonis Reads using a local server:
 
 ```bash
 # Using Python
@@ -59,11 +63,11 @@ Then open `http://localhost:8000` (or the port provided) in your browser.
 
 ## 📖 How to Use
 
-1. **Adding Books**: Click the "+" button in the sidebar to add a new book
-2. **Book Details**: Fill in the title, author, and upload a cover image
-3. **Adding Highlights**: Add themes and quotes from your book
-4. **Searching**: Use the search bar to find specific highlights across all books
-5. **Dark/Light Mode**: Toggle between dark and light mode using the moon/sun icon
+1. **Adding Books**: Click the "+" button in the sidebar to add a new book.
+2. **Book Details**: Fill in the title, author, and upload a cover image.
+3. **Adding Highlights**: Add themes and quotes from your book.
+4. **Searching**: Use the search bar to find specific highlights across all books.
+5. **Dark/Light Mode**: Toggle between dark and light mode using the moon/sun icon.
 
 ## 🧩 Project Structure
 
@@ -84,6 +88,19 @@ e-reads/
 - **Dependencies**: 
   - Font Awesome (for icons)
   - Google Fonts (Inter and Space Mono)
+
+## 📚 Current Book Collection
+
+The current collection includes works across various genres and time periods:
+
+- **Philosophy**: Pascal's "Pensées", Nietzsche's "The Birth of Tragedy"
+- **Science Fiction**: Frank Herbert's "Dune" series, Douglas Adams' "The Hitchhiker's Guide to the Galaxy"
+- **Transcendentalism**: Thoreau's "Walden & Civil Disobedience"
+- **Technology & Privacy**: Assange's "Cypherpunks", Collier's "Tor"
+- **Economics**: "The Bitcoin Standard"
+- **Literature**: McCarthy's "Blood Meridian", Gogol's "The Nose"
+- **Classical Works**: Horace's "Odes"
+- **Japanese Literature**: Mishima's "Sun & Steel"
 
 ## 🛣️ Roadmap
 
@@ -113,5 +130,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 🙏 Acknowledgements
 
-- Inspired by the need for better Kindle highlight management
-- Thanks to all the readers who value knowledge preservation
+- Inspired by the need for better book management and the preservation of knowledge.
+- Thanks to all the readers who value literature and its insights.
