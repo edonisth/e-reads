@@ -10,6 +10,51 @@
   <meta name="description" content="Edonis Reads - A personal collection of book highlights and insights">
   <meta name="theme-color" content="#111122">
   <link rel="canonical" href="https://your-domain.com">
+  <style>
+    .ascii-art-container {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .ascii-art {
+      display: inline-block;
+      font-family: monospace;
+      white-space: pre;
+      line-height: 1.2;
+      color: #f5d742;
+      text-shadow: 0 0 5px #fff, 0 0 10px #f5d742;
+    }
+
+    .easter-egg {
+      width: 100px; /* Width of the egg */
+      height: 150px; /* Height of the egg */
+      background: linear-gradient(135deg, #ffcc00, #ff6699, #66ccff, #ffcc00); /* Colorful gradient */
+      border-radius: 50% 50% 40% 40%; /* Egg shape */
+      position: relative;
+      animation: rotate 5s linear infinite; /* Rotation animation */
+      margin: 20px auto; /* Center the egg */
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    }
+
+    @keyframes rotate {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .rabbit-image {
+      position: absolute;
+      top: 50%; /* Center vertically */
+      left: 50%; /* Center horizontally */
+      transform: translate(-50%, -50%); /* Adjust position to center */
+      width: 50px; /* Adjust size of the rabbit */
+      height: auto; /* Maintain aspect ratio */
+      z-index: 1; /* Ensure the rabbit is above the egg */
+    }
+  </style>
 </head>
 <body>
   <!-- Skip to main content link for accessibility -->
@@ -275,6 +320,32 @@
             <div class="book-info">
               <h3 class="book-title">Children of Dune</h3>
               <p class="book-author">Frank Herbert</p>
+            </div>
+          </a>
+        </li>
+
+        <!-- Add Walden & Civil Disobedience -->
+        <li class="book-item">
+          <a href="#walden" data-book-id="walden" class="book-link">
+            <div class="book-cover">
+              <img src="covers/walden.jpg" alt="Walden & Civil Disobedience Cover" loading="lazy">
+            </div>
+            <div class="book-info">
+              <h3 class="book-title">Walden & Civil Disobedience</h3>
+              <p class="book-author">Henry David Thoreau</p>
+            </div>
+          </a>
+        </li>
+
+        <!-- Add Stephen King - On Writing to the sidebar book list, before the closing </ul> tag -->
+        <li class="book-item">
+          <a href="#onwriting" data-book-id="onwriting" class="book-link">
+            <div class="book-cover">
+              <img src="covers/stephen-king-on-writing.jpg" alt="On Writing Cover" loading="lazy">
+            </div>
+            <div class="book-info">
+              <h3 class="book-title">On Writing: A Memoir of the Craft</h3>
+              <p class="book-author">Stephen King</p>
             </div>
           </a>
         </li>
@@ -1973,9 +2044,263 @@
           </section>
         </article>
       </section>
-    </main>
 
-    <!-- Footer -->
+      <!-- Walden & Civil Disobedience Content -->
+      <section class="content-section book-content" id="walden" data-book-id="walden" aria-labelledby="walden-title">
+        <article class="book-summary">
+          <header class="book-header">
+            <h1 class="book-title-main" id="walden-title">Henry David Thoreau - Walden & Civil Disobedience</h1>
+          </header>
+          <div class="book-intro">
+            <h3>Overview</h3>
+            <p>"Walden" (1854) chronicles Thoreau's two-year experiment in simple living at Walden Pond, while "Civil Disobedience" (1849) outlines his philosophy of nonviolent resistance. Together, these works represent a profound meditation on self-reliance, nature, individual liberty, and moral conscience. Thoreau's retreat to Walden Pond was both a practical experiment in self-sufficiency and a spiritual quest for transcendental truth, while his essay on civil disobedience emerged from his refusal to pay taxes to a government that supported slavery and waged what he saw as an unjust war against Mexico.</p>
+            <p>These works have influenced generations of thinkers, activists, and nature writers, from Gandhi and Martin Luther King Jr. to environmentalists and minimalists. Their message of intentional living, resistance to unjust authority, and communion with nature remains powerfully relevant today.</p>
+          </div>
+          <section class="key-themes">
+            <h2 class="section-title">Key Themes</h2>
+            <ul class="theme-list">
+              <li>
+                <h3>Simplicity and Self-Reliance</h3>
+                <p>At the heart of "Walden" is Thoreau's experiment in simple living. He built his own cabin, grew his own food, and reduced his needs to the bare essentials, demonstrating that one could live richly with few material possessions. His famous declaration, "Simplify, simplify," became a rallying cry for those seeking to escape the complexities and corruptions of modern civilization.</p>
+                <p>Thoreau's emphasis on self-reliance extends beyond mere physical sustenance to intellectual and spiritual independence. He advocates for thinking independently rather than accepting inherited wisdom or social conventions, writing that "If a man does not keep pace with his companions, perhaps it is because he hears a different drummer."</p>
+              </li>
+              <li>
+                <h3>The Natural World as Teacher</h3>
+                <p>Thoreau approaches nature not just as a scientist or observer but as a student seeking wisdom. His minute observations of Walden Pond's ecology are intertwined with philosophical reflections, suggesting that natural phenomena contain spiritual and moral lessons for those who pay attention.</p>
+                <p>His detailed descriptions of the changing seasons, the behavior of animals, and the patterns of plant life reveal both scientific precision and poetic sensibility. For Thoreau, nature offers an alternative education to that provided by formal institutions, writing that "The universe is wider than our views of it."</p>
+              </li>
+              <li>
+                <h3>Individual Conscience vs. State Authority</h3>
+                <p>In "Civil Disobedience," Thoreau articulates a radical theory of individual responsibility in the face of state injustice. He argues that individuals have not just a right but a duty to resist unjust laws and practices, even if this means facing punishment.</p>
+                <p>His night in jail for refusing to pay taxes became a powerful symbol of principled resistance to state authority. The essay's influence on movements for social change, from civil rights to anti-war protests, demonstrates the enduring power of his vision of conscientious resistance.</p>
+              </li>
+              <li>
+                <h3>The Critique of Economic Life</h3>
+                <p>Thoreau offers a scathing critique of the emerging industrial economy and its effect on human life. He sees most men as living lives of "quiet desperation," trapped in unfulfilling work to pay for unnecessary luxuries.</p>
+                <p>His experiment at Walden demonstrates an alternative economic model based on minimal consumption and maximum self-sufficiency. He challenges readers to question whether their material pursuits are worth the life energy spent acquiring them, asking "The cost of a thing is the amount of what I will call life which is required to be exchanged for it."</p>
+              </li>
+              <li>
+                <h3>Spiritual Awakening</h3>
+                <p>For Thoreau, the retreat to Walden was fundamentally a spiritual quest. He sought to "live deliberately" and confront only the essential facts of life, treating everyday experiences as opportunities for transcendental insight.</p>
+                <p>His approach combines elements of Eastern philosophy, particularly Hindu texts he studied, with Western traditions of contemplation and self-examination. The book's emphasis on awakening—"Morning is when I am awake and there is a dawn in me"—reflects his belief in the possibility of spiritual rebirth through conscious living.</p>
+              </li>
+              <li>
+                <h3>Time and Modernity</h3>
+                <p>Thoreau critiques modern society's obsession with progress and speed, particularly the new technologies like the railroad that were transforming 19th-century America. He sees these changes as potentially dehumanizing, writing that "We do not ride on the railroad; it rides upon us."</p>
+                <p>His alternative vision emphasizes living in the present moment and moving at nature's pace rather than mechanical time. The seasonal structure of "Walden" reflects this natural temporality, contrasting with the artificial rhythms of industrial society.</p>
+              </li>
+              <li>
+                <h3>Education and Learning</h3>
+                <p>Throughout both works, Thoreau challenges conventional notions of education and knowledge. He advocates for direct experience over book learning, though he himself was deeply read in classical and contemporary literature.</p>
+                <p>His ideal education combines practical skills, close observation of nature, and philosophical reflection. The narrative of "Walden" itself models this approach, weaving together practical details about building and farming with literary references and philosophical speculation.</p>
+              </li>
+              <li>
+                <h3>The Relationship Between Society and Solitude</h3>
+                <p>While often viewed as a hermit, Thoreau's retreat was not about complete isolation but about finding the right balance between solitude and social engagement. He regularly walked to Concord for supplies and conversations, and received visitors at his cabin.</p>
+                <p>His solitude was purposeful, allowing him to develop independent thought and deeper self-knowledge. As he writes, "I never found the companion that was so companionable as solitude."</p>
+              </li>
+            </ul>
+          </section>
+          <section class="significant-quotes">
+            <h2 class="section-title">Significant Quotes</h2>
+            <div class="quote-grid">
+              <blockquote class="quote-card">
+                <p>"I went to the woods because I wished to live deliberately, to front only the essential facts of life, and see if I could not learn what it had to teach, and not, when I came to die, discover that I had not lived."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"The mass of men lead lives of quiet desperation. What is called resignation is confirmed desperation."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"If a man does not keep pace with his companions, perhaps it is because he hears a different drummer. Let him step to the music which he hears, however measured or far away."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"Rather than love, than money, than fame, give me truth."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"That government is best which governs least... That government is best which governs not at all."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"Under a government which imprisons any unjustly, the true place for a just man is also a prison."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"If you have built castles in the air, your work need not be lost; that is where they should be. Now put the foundations under them."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"I learned this, at least, by my experiment: that if one advances confidently in the direction of his dreams, and endeavors to live the life which he has imagined, he will meet with a success unexpected in common hours."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"The cost of a thing is the amount of what I will call life which is required to be exchanged for it, immediately or in the long run."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"It is never too late to give up our prejudices. No way of thinking or doing, however ancient, can be trusted without proof."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"Unjust laws exist: shall we be content to obey them, or shall we endeavor to amend them, and obey them until we have succeeded, or shall we transgress them at once?"</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"I have learned, that if one advances confidently in the direction of his dreams, and endeavors to live the life which he has imagined, he will meet with a success unexpected in common hours."</p>
+              </blockquote>
+            </div>
+          </section>
+          <section class="key-themes">
+            <h2 class="section-title">Literary and Historical Significance</h2>
+            <ul class="theme-list">
+              <li>
+                <h3>Influence on Environmental Thought</h3>
+                <p>"Walden" is considered a foundational text of American environmental literature and helped establish nature writing as a distinct literary genre. Thoreau's detailed observations of natural phenomena and his philosophy of environmental ethics influenced later conservationists and environmentalists, from John Muir to Rachel Carson.</p>
+                <p>His vision of nature as having intrinsic value beyond its utility for humans, and his early understanding of ecological interconnections, helped lay the groundwork for modern environmental consciousness.</p>
+              </li>
+              <li>
+                <h3>Impact on Civil Rights and Nonviolent Resistance</h3>
+                <p>"Civil Disobedience" has had a profound influence on movements for social change worldwide. Gandhi acknowledged its influence on his philosophy of satyagraha, and Martin Luther King Jr. cited it as a key inspiration for the civil rights movement's strategy of nonviolent resistance.</p>
+                <p>The essay's principles continue to inform various forms of peaceful protest and civil disobedience, from anti-war demonstrations to environmental activism.</p>
+              </li>
+              <li>
+                <h3>Literary Innovation</h3>
+                <p>Thoreau's unique literary style, combining detailed observation with philosophical reflection, helped establish a distinctively American voice in literature. His use of the first-person narrative to explore both personal experience and universal themes influenced later memoir and nature writing.</p>
+                <p>His ability to find profound meaning in ordinary experiences and his integration of multiple genres—autobiography, natural history, social criticism, and philosophical treatise—demonstrated new possibilities for American literature.</p>
+              </li>
+              <li>
+                <h3>Contemporary Relevance</h3>
+                <p>Thoreau's critiques of consumerism, technological dependence, and environmental degradation remain remarkably relevant to contemporary concerns. His advocacy for simple living and spiritual authenticity resonates with modern movements for sustainable living and mindfulness.</p>
+                <p>His defense of individual conscience against state power and corporate influence continues to inspire those who question authority and seek alternatives to mainstream society.</p>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </section>
+
+      <!-- Stephen King - On Writing Content -->
+      <section class="content-section book-content" id="onwriting" data-book-id="onwriting" aria-labelledby="onwriting-title">
+        <article class="book-summary">
+          <header class="book-header">
+            <h1 class="book-title-main" id="onwriting-title">Stephen King - On Writing: A Memoir of the Craft</h1>
+          </header>
+          <div class="book-intro">
+            <h3>Overview</h3>
+            <p>"On Writing: A Memoir of the Craft" (2000) is part autobiography, part master class by one of the bestselling authors of modern times. The book offers unique insights into King's personal journey as a writer while providing practical advice for aspiring writers. Through a blend of personal anecdotes and technical instruction, King illuminates the intersection of life and art, demonstrating how personal experiences shape creative expression.</p>
+          </div>
+          <section class="key-themes">
+            <h2 class="section-title">Key Themes</h2>
+            <ul class="theme-list">
+              <li>
+                <h3>The Writer's Toolbox</h3>
+                <p>King emphasizes the fundamental importance of mastering the basic tools of writing: vocabulary, grammar, and style. He presents these elements as essential instruments in a writer's toolbox, each serving a specific purpose in the craft of storytelling.</p>
+                <p>The metaphor of the toolbox extends throughout the book, suggesting that writing is both a craft and a skill that can be developed through deliberate practice and proper use of these tools.</p>
+              </li>
+              <li>
+                <h3>The Discipline of Writing</h3>
+                <p>King advocates for treating writing as a serious discipline requiring dedication and routine. He emphasizes the importance of writing daily, setting specific word count goals, and maintaining consistency in one's practice.</p>
+                <p>His famous advice to write 2,000 words per day, every day, underscores his belief that success in writing comes from treating it as a job rather than waiting for inspiration to strike.</p>
+              </li>
+              <li>
+                <h3>Reading as Essential Practice</h3>
+                <p>Throughout the book, King emphasizes the inseparable relationship between reading and writing. He argues that constant reading across genres is crucial for developing writing skills and understanding storytelling techniques.</p>
+                <p>He suggests that reading helps writers internalize rhythm, pacing, and narrative structure while building vocabulary and understanding of different stylistic approaches.</p>
+              </li>
+              <li>
+                <h3>Authenticity in Writing</h3>
+                <p>King stresses the importance of writing truthfully and authentically, arguing that the best writing comes from a place of honesty rather than trying to imitate others or follow market trends.</p>
+                <p>His emphasis on authenticity extends to his discussion of character development, plot construction, and the overall creative process.</p>
+              </li>
+              <li>
+                <h3>The Writing Process</h3>
+                <p>King provides detailed insights into his own writing process, from initial idea to final draft. He advocates for writing the first draft with the "door closed" (in isolation) and rewriting with the "door open" (considering feedback).</p>
+                <p>His approach to revision, including his famous formula that the second draft should be the first draft minus 10%, offers practical guidance for the editing process.</p>
+              </li>
+              <li>
+                <h3>Overcoming Adversity</h3>
+                <p>The memoir portions of the book detail King's struggles with addiction and his near-fatal accident in 1999, demonstrating how personal challenges can influence and sometimes strengthen one's writing.</p>
+                <p>These sections illustrate the therapeutic potential of writing and its role in personal recovery and growth.</p>
+              </li>
+            </ul>
+          </section>
+          <section class="significant-quotes">
+            <h2 class="section-title">Significant Quotes</h2>
+            <div class="quote-grid">
+              <blockquote class="quote-card">
+                <p>"The road to hell is paved with adverbs."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"If you want to be a writer, you must do two things above all others: read a lot and write a lot."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"The scariest moment is always just before you start."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"Description begins in the writer's imagination, but should finish in the reader's."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"Amateurs sit and wait for inspiration, the rest of us just get up and go to work."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"Writing is not life, but I think that sometimes it can be a way back to life."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"Kill your darlings, kill your darlings, even when it breaks your egocentric little scribbler's heart, kill your darlings."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"Life isn't a support system for art. It's the other way around."</p>
+              </blockquote>
+            </div>
+          </section>
+          <section class="key-themes">
+            <h2 class="section-title">Literary Significance</h2>
+            <ul class="theme-list">
+              <li>
+                <h3>Impact on Writing Education</h3>
+                <p>"On Writing" has become a cornerstone text in creative writing education, praised for its practical advice and accessible approach to teaching the craft. Its blend of memoir and instruction has influenced how writing is taught in both academic and informal settings.</p>
+                <p>The book's enduring popularity among aspiring writers and educators speaks to its effectiveness in demystifying the writing process while maintaining respect for the craft's complexity.</p>
+              </li>
+              <li>
+                <h3>Cultural Influence</h3>
+                <p>The book has helped shape contemporary discussions about writing and creativity, influencing both professional writers and the broader cultural understanding of the writing process.</p>
+                <p>Its honest portrayal of the writer's life and craft has made it a touchstone for discussions about creative work and artistic development.</p>
+              </li>
+            </ul>
+          </section>
+          <section class="key-themes hidden-section" style="border-top: 1px dashed #666; margin-top: 40px; padding-top: 20px;">
+            <h2 class="section-title">Easter Egg: King's Writing Tips</h2>
+            <div class="easter-egg" id="easterEgg">
+                <img src="covers/white-rabbit.png" alt="White Rabbit" class="rabbit-image">
+            </div>
+            <ul class="theme-list">
+              <li>
+                <h3>Write With the Door Closed, Rewrite With the Door Open</h3>
+                <p>King advises writing your first draft in private, focusing solely on getting the story down without worrying about what others might think. Only after completing the draft should you open the door to feedback and criticism.</p>
+                <p>This approach protects the fragile creative process from external judgment while still allowing for necessary refinement later.</p>
+              </li>
+              <li>
+                <h3>Remove Unnecessary Words</h3>
+                <p>King's formula: 2nd Draft = 1st Draft - 10%. He believes most writing can be tightened by removing unnecessary words, particularly adverbs and excessive description.</p>
+                <p>This discipline forces writers to consider whether each word truly serves the story or merely indulges the writer's ego.</p>
+              </li>
+              <li>
+                <h3>Read, Read, Read</h3>
+                <p>King insists that writers must be voracious readers. He suggests reading both good and bad books—good books to learn what works, bad books to learn what doesn't.</p>
+                <p>He recommends reading across genres and styles to develop a broad understanding of literary techniques and possibilities.</p>
+              </li>
+              <li>
+                <h3>Write Every Day</h3>
+                <p>King's own discipline involves writing 2,000 words every day, including holidays. He believes this consistency builds both skill and the right mindset for professional writing.</p>
+                <p>Regular writing develops the "writing muscles" and keeps the story fresh in your mind, making it easier to maintain momentum.</p>
+              </li>
+              <li>
+                <h3>Avoid Plotting</h3>
+                <p>King prefers to put characters in situations and watch what they do rather than plotting extensively. He believes stories should evolve organically from character decisions.</p>
+                <p>This approach prioritizes authenticity and surprise over rigid adherence to predetermined plot points.</p>
+              </li>
+              <li>
+                <h3>Write for Your Ideal Reader</h3>
+                <p>King writes with one reader in mind—his wife Tabitha. Having a specific ideal reader helps focus the writing and maintain a consistent voice.</p>
+                <p>This practice prevents the paralysis that can come from trying to please everyone and grounds the writing in genuine communication.</p>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </section>
+
+      <!-- Footer -->
     <footer class="footer">
       <div class="footer-content">
         <p>&copy; 2025 Edonis Reads. All rights reserved.</p>
