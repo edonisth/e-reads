@@ -6,32 +6,36 @@
 }
 
 body {
-  display: flex;
-  flex-direction: column;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-areas: 
+      "header"
+      "main";
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
   color: #E0E0FF;
   background-color: #0a0a12;
-  min-height: 100vh;
 }
 
 /* Accessibility - Skip Link */
 .skip-link {
   position: absolute;
-  top: -40px;
+  top: -100px;
   left: 0;
+  padding: 1rem;
   background: #445a95;
   color: white;
-  padding: 8px 16px;
-  z-index: 2000;
-  text-decoration: none;
-  border-radius: 0 0 4px 0;
+  z-index: 9999;
   transition: top 0.3s ease;
 }
 
 .skip-link:focus {
   top: 0;
   outline: 2px solid #1E90FF;
+  outline-offset: 2px;
 }
 
 /* Light Mode Styles - Premium Aesthetic */
@@ -478,46 +482,152 @@ body::before {
 
 /* Navbar Styles */
 .navbar {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1.618fr) auto; /* Golden ratio */
   align-items: center;
-  padding: 1rem;
+  padding: 1rem 1.618rem; /* Golden ratio padding */
   position: sticky;
   top: 0;
   z-index: 1000;
-  gap: 1.5rem;
   background: linear-gradient(135deg, rgba(108, 114, 255, 0.1) 0%, rgba(18, 18, 40, 0.95) 100%);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid #445a95;
+  gap: 1.618rem; /* Golden ratio spacing */
 }
 
+/* Left section */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Center section */
 .navbar-brand {
-  margin-right: auto;
+  grid-column: 2;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  flex: none;
+}
+
+/* Right section */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: flex-end;
 }
 
 .logo-text {
   font-family: 'Space Mono', monospace;
-  font-size: 1.5rem;
+  font-size: calc(1rem * 1.618); /* Golden ratio font size */
   font-weight: 700;
-  color: #445a95;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  text-shadow: 0 0 8px rgba(108, 114, 255, 0.4);
+  background: linear-gradient(135deg, #6c72ff 0%, #1E90FF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-decoration: none;
+  position: relative;
+  padding: 0.5rem 0.809rem; /* Half golden ratio padding */
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-transform: none;
+  letter-spacing: -0.5px;
+  display: inline-block;
 }
 
-/* Sidebar Toggle Button */
-.sidebar-toggle {
-  background: #445a95;
-  border: none;
-  color: white;
-  font-size: 1.25rem;
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
+.logo-text::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(108, 114, 255, 0.2), rgba(30, 144, 255, 0.2));
+  border-radius: 0.5rem;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.logo-text:hover {
+  transform: translateY(-2px);
+  text-shadow: 0 2px 10px rgba(108, 114, 255, 0.3);
+}
+
+.logo-text:hover::before {
+  opacity: 1;
+}
+
+/* Hover effect with perfect square */
+.logo-text::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5rem;
+  padding: 2px;
+  background: linear-gradient(135deg, #6c72ff 0%, #1E90FF 100%);
+  -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+  mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Adjust other elements for symmetry */
+.sidebar-toggle,
+.theme-toggle {
+  width: 2.618rem; /* Golden ratio size */
+  height: 2.618rem;
+  border-radius: 0.5rem;
+}
+
+.search-form {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.search-input {
+  width: calc(2.618rem * 3); /* Golden ratio × 3 */
+  transition: width 0.3s ease;
+}
+
+.search-input:focus {
+  width: calc(2.618rem * 4); /* Golden ratio × 4 */
+}
+
+.highlights-counter {
+  padding: 0.5rem 0.809rem; /* Half golden ratio padding */
+}
+
+/* Mobile adjustments with preserved ratios */
+@media (max-width: 768px) {
+  .navbar {
+    grid-template-columns: auto auto auto;
+    padding: 0.809rem; /* Half golden ratio */
+    gap: 0.809rem;
+  }
+
+  .logo-text {
+    font-size: calc(1rem * 1.309); /* Reduced golden ratio for mobile */
+  }
+
+  .search-input {
+    width: calc(2.618rem * 2);
+  }
+
+  .search-input:focus {
+    width: calc(2.618rem * 3);
+  }
+
+  .sidebar-toggle,
+  .theme-toggle {
+    width: 2.309rem;
+    height: 2.309rem;
+  }
 }
 
 /* Hide all book content sections by default */
@@ -1455,23 +1565,97 @@ body.light-mode .add-book-button:hover {
 }
 
 /* Sidebar toggle button styles */
-#sidebarToggle {
-    transition: transform 0.3s ease;
+.sidebar-toggle {
+  background: linear-gradient(135deg, #445a95, #1E90FF);
+  border: none;
+  color: white;
+  width: 2.618rem;
+  height: 2.618rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 2px 8px rgba(30, 144, 255, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.1);
 }
 
-#sidebarToggle i {
-    transition: transform 0.3s ease;
-    display: inline-block; /* This is important for the rotation to work */
+.sidebar-toggle:hover {
+  background: linear-gradient(135deg, #1E90FF, #6c72ff);
+  transform: scale(1.05) translateY(-1px);
+  box-shadow: 0 4px 12px rgba(30, 144, 255, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.2);
 }
 
-/* Rotate the icon when sidebar is collapsed */
+.sidebar-toggle i {
+  font-size: 1.2rem;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
 .sidebar.collapsed ~ * #sidebarToggle i {
-    transform: rotate(90deg);
+  transform: rotate(180deg);
 }
 
-/* Alternative selector if the above doesn't work */
-body:has(.sidebar.collapsed) #sidebarToggle i {
-    transform: rotate(90deg);
+/* Logo text enhancements */
+.logo-text {
+  font-family: 'Space Mono', monospace;
+  font-size: calc(1rem * 1.618);
+  font-weight: 700;
+  background: linear-gradient(135deg, #6c72ff 0%, #1E90FF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-decoration: none;
+  position: relative;
+  padding: 0.5rem 0.809rem;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-transform: none;
+  letter-spacing: -0.5px;
+  display: inline-block;
+}
+
+.logo-text::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(108, 114, 255, 0.2), rgba(30, 144, 255, 0.2));
+  border-radius: 0.5rem;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.logo-text:hover {
+  transform: translateY(-2px);
+  text-shadow: 0 2px 10px rgba(108, 114, 255, 0.3);
+}
+
+.logo-text:hover::before {
+  opacity: 1;
+}
+
+/* Light mode adjustments */
+body.light-mode .sidebar-toggle {
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
+}
+
+body.light-mode .sidebar-toggle:hover {
+  background: linear-gradient(135deg, #6366f1, #818cf8);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+}
+
+body.light-mode .logo-text {
+  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+body.light-mode .logo-text::before {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(99, 102, 241, 0.1));
+}
+
+body.light-mode .logo-text:hover {
+  text-shadow: 0 2px 10px rgba(79, 70, 229, 0.2);
 }
 
 /* Explore Button Styles */
@@ -2837,4 +3021,669 @@ body.light-mode .primary-btn:hover {
     width: 150px; /* Increased size of the rabbit */
     height: auto; /* Maintain aspect ratio */
     z-index: 1; /* Ensure the rabbit is above the egg */
+}
+
+/* Enhanced Loading States */
+.loading-indicator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2000;
+    background: rgba(17, 17, 34, 0.9);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    display: none;
+}
+
+.content.loading .loading-indicator {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    animation: fadeIn 0.3s ease;
+}
+
+.loading-spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top-color: #445a95;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Enhanced Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(17, 17, 34, 0.6);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(68, 90, 149, 0.6);
+    border-radius: 6px;
+    border: 3px solid rgba(17, 17, 34, 0.6);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(68, 90, 149, 0.8);
+}
+
+/* Light Mode Scrollbar */
+body.light-mode ::-webkit-scrollbar-track {
+    background: rgba(248, 249, 252, 0.6);
+}
+
+body.light-mode ::-webkit-scrollbar-thumb {
+    background: rgba(79, 70, 229, 0.3);
+    border: 3px solid rgba(248, 249, 252, 0.6);
+}
+
+body.light-mode ::-webkit-scrollbar-thumb:hover {
+    background: rgba(79, 70, 229, 0.5);
+}
+
+/* Improved Footer */
+.footer {
+    background: rgba(17, 17, 34, 0.95);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(68, 90, 149, 0.4);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.footer a {
+    color: #6c72ff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+}
+
+.footer a:hover {
+    color: #1E90FF;
+    background: rgba(108, 114, 255, 0.1);
+}
+
+/* Enhanced Form Aesthetics */
+.form-group input,
+.form-group textarea {
+    background: rgba(26, 26, 46, 0.6);
+    border: 1px solid rgba(68, 90, 149, 0.4);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    color: #E0E0FF;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    background: rgba(26, 26, 46, 0.8);
+    border-color: #6c72ff;
+    box-shadow: 0 0 0 3px rgba(108, 114, 255, 0.2);
+    outline: none;
+}
+
+/* Light Mode Form Adjustments */
+body.light-mode .form-group input,
+body.light-mode .form-group textarea {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    color: #2d3748;
+}
+
+body.light-mode .form-group input:focus,
+body.light-mode .form-group textarea:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    .footer {
+        padding: 0.8rem;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        font-size: 16px; /* Prevent iOS zoom */
+    }
+    
+    .book-item,
+    .featured-book-card,
+    .theme-item,
+    .quote-card {
+        transform: none !important; /* Disable hover transforms on mobile */
+    }
+}
+
+/* Improved Focus States */
+.book-link:focus-visible,
+.nav-link:focus-visible,
+.search-input:focus-visible,
+.form-group input:focus-visible,
+.form-group textarea:focus-visible {
+    outline: 2px solid #6c72ff;
+    outline-offset: 2px;
+}
+
+body.light-mode .book-link:focus-visible,
+body.light-mode .nav-link:focus-visible,
+body.light-mode .search-input:focus-visible,
+body.light-mode .form-group input:focus-visible,
+body.light-mode .form-group textarea:focus-visible {
+    outline-color: #4f46e5;
+}
+
+/* Enhanced Book Card Interactions */
+.book-item {
+    transform-origin: center;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.3s ease,
+                background-color 0.3s ease;
+}
+
+.book-item:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 24px rgba(108, 114, 255, 0.15);
+}
+
+.book-cover img {
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.book-item:hover .book-cover img {
+    transform: scale(1.08);
+}
+
+/* Smooth Content Transitions */
+.content-section {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Enhanced Featured Book Cards */
+.featured-book-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.featured-book-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(108, 114, 255, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.featured-book-card:hover::before {
+    opacity: 1;
+}
+
+.featured-book-card img {
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.3s ease;
+}
+
+.featured-book-card:hover img {
+    transform: scale(1.08) translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+/* Quote Card Hover Effects - Enhanced */
+.quote-card {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.4s ease,
+                background-color 0.3s ease;
+    padding: 2rem 2.618rem; /* Golden ratio padding */
+}
+
+/* Opening quote mark */
+.quote-card::before {
+    content: '"';
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-size: 4rem;
+    font-family: 'Playfair Display', Georgia, serif;
+    color: rgba(108, 114, 255, 0.1);
+    line-height: 1;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: left top;
+}
+
+/* Closing quote mark */
+.quote-card::after {
+    content: '"';
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 4rem;
+    font-family: 'Playfair Display', Georgia, serif;
+    color: rgba(108, 114, 255, 0.1);
+    line-height: 1;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: right bottom;
+    transform: scale(0.8) translate(0.5rem, 0.5rem);
+    opacity: 0;
+}
+
+/* Quote text enhancement */
+.quote-card p {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Hover animations */
+.quote-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(108, 114, 255, 0.15);
+}
+
+.quote-card:hover::before {
+    transform: scale(1.2) translate(-0.5rem, -0.5rem) rotate(-8deg);
+    color: rgba(108, 114, 255, 0.2);
+}
+
+.quote-card:hover::after {
+    transform: scale(1) translate(0, 0) rotate(8deg);
+    opacity: 1;
+    color: rgba(108, 114, 255, 0.2);
+}
+
+.quote-card:hover p {
+    transform: scale(1.02);
+}
+
+/* Light mode adjustments */
+body.light-mode .quote-card::before,
+body.light-mode .quote-card::after {
+    color: rgba(79, 70, 229, 0.1);
+}
+
+body.light-mode .quote-card:hover::before,
+body.light-mode .quote-card:hover::after {
+    color: rgba(79, 70, 229, 0.2);
+}
+
+/* Add subtle background animation */
+.quote-card::before,
+.quote-card::after {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure smooth animation with hardware acceleration */
+.quote-card {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .quote-card,
+    .quote-card::before,
+    .quote-card::after,
+    .quote-card p {
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
+/* Main container adjustments to accommodate footer */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1 0 auto;
+    padding-bottom: 4rem; /* Space for footer */
+}
+
+/* Fixed Footer Styles */
+.footer {
+    flex-shrink: 0;
+    width: 100%;
+    background: rgba(17, 17, 34, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(68, 90, 149, 0.4);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.618rem; /* Golden ratio padding */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.618rem; /* Golden ratio gap */
+}
+
+.footer a {
+    color: #6c72ff;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    padding: 0.5rem 0.809rem; /* Half golden ratio padding */
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.footer a:hover {
+    color: #1E90FF;
+    background: rgba(108, 114, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+/* Light mode footer */
+body.light-mode .footer {
+    background: rgba(248, 249, 252, 0.95);
+    border-top: 1px solid rgba(226, 232, 240, 0.8);
+    color: #4b5563;
+}
+
+body.light-mode .footer a {
+    color: #4f46e5;
+}
+
+body.light-mode .footer a:hover {
+    color: #4338ca;
+    background: rgba(79, 70, 229, 0.08);
+}
+
+/* Mobile footer adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding-bottom: 6rem; /* More space for multi-line footer on mobile */
+    }
+
+    .footer {
+        padding: 0.809rem 0; /* Half golden ratio for mobile */
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.809rem;
+        padding: 0 1rem;
+    }
+}
+
+/* Print styles for footer */
+@media print {
+    .footer {
+        display: none;
+    }
+    
+    .container {
+        padding-bottom: 0;
+    }
+}
+
+/* Layout Structure */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.container {
+    flex: 1;
+    display: flex;
+    position: relative;
+    min-height: calc(100vh - 60px - 4rem); /* viewport height - navbar - footer */
+}
+
+/* Sidebar adjustments */
+.sidebar {
+    width: 300px;
+    background: #111122;
+    padding: 2rem;
+    overflow-y: auto;
+    position: fixed;
+    top: 60px; /* Height of navbar */
+    left: 0;
+    bottom: 0; /* Extend to bottom of viewport */
+    transition: transform 0.3s ease;
+    z-index: 10;
+    border-right: 1px solid rgba(68, 90, 149, 0.3);
+}
+
+/* Content adjustments */
+.content {
+    flex: 1;
+    margin-left: 300px; /* Width of sidebar */
+    padding: 2rem;
+    min-height: calc(100vh - 60px); /* Full height minus navbar */
+    padding-bottom: 2rem; /* Add some bottom padding */
+}
+
+/* Collapsed sidebar state */
+.sidebar.collapsed {
+    transform: translateX(-300px);
+}
+
+.sidebar.collapsed ~ .content {
+    margin-left: 0;
+}
+
+/* Footer Styles - Full Width */
+.footer {
+    grid-area: footer;
+    width: 100%;
+    height: 4rem;
+    background: rgba(17, 17, 34, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(68, 90, 149, 0.4);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+/* Ensure content doesn't get hidden behind footer */
+.container {
+    grid-area: main;
+    display: flex;
+    position: relative;
+    padding-bottom: 4rem; /* Match footer height */
+}
+
+/* Ensure sidebar doesn't overlap footer */
+.sidebar {
+    width: 300px;
+    background: #111122;
+    padding: 2rem;
+    overflow-y: auto;
+    position: fixed;
+    top: 60px; /* Height of navbar */
+    left: 0;
+    bottom: 0; /* Extend to bottom of viewport */
+    transition: transform 0.3s ease;
+    z-index: 10;
+    border-right: 1px solid rgba(68, 90, 149, 0.3);
+}
+
+/* Mobile adjustments for footer */
+@media (max-width: 768px) {
+    .container {
+        padding-bottom: 6rem; /* Match taller footer height */
+    }
+    
+    .sidebar {
+        bottom: 6rem; /* Match taller footer height */
+    }
+    
+    .content {
+        padding-bottom: 7rem; /* Extra space for mobile */
+    }
+    
+    .footer {
+        height: 6rem;
+    }
+}
+
+.footer-content {
+    max-width: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 1.618rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.618rem;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        transform: translateX(-100%);
+        bottom: 6rem; /* Taller footer height */
+    }
+
+    .sidebar.active {
+        transform: translateX(0);
+    }
+
+    .content {
+        margin-left: 0;
+        padding: 1rem;
+        padding-bottom: 7rem;
+    }
+
+    .footer {
+        height: 6rem; /* Taller footer for mobile */
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.809rem;
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* Print styles */
+@media print {
+    .sidebar, .footer {
+        display: none;
+    }
+
+    .content {
+        margin-left: 0;
+        padding: 0;
+    }
+}
+
+/* Complete Footer Fix - HTML and Body Structure */
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+/* Fixed Footer 2025 */
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3rem;
+  background: rgba(17, 17, 34, 0.95);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(68, 90, 149, 0.4);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  color: #E0E0FF;
+}
+
+/* Light mode footer */
+body.light-mode .footer {
+  background: rgba(248, 249, 252, 0.95);
+  border-top: 1px solid rgba(226, 232, 240, 0.8);
+  color: #4b5563;
+}
+
+/* Ensure content doesn't get hidden behind footer */
+.container {
+  padding-bottom: calc(3rem + 16px);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .footer {
+    font-size: 0.8rem;
+  }
+  
+  .container {
+    padding-bottom: calc(3rem + 24px);
+  }
+  
+  .sidebar {
+    height: calc(100vh - 60px - 3rem);
+  }
 }

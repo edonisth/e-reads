@@ -62,36 +62,41 @@
   
   <!-- Navbar -->
   <nav class="navbar" role="navigation" aria-label="Main navigation">
-    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
-      <i class="fas fa-bars"></i>
-    </button>
-    <div class="navbar-brand">
-      <span class="logo-text">Edonis Reads</span>
-    </div>
-    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-      <i class="fas fa-moon"></i>
-    </button>
-    <ul class="nav-menu">
-      <li><a href="#" class="nav-link explore-btn" onclick="showWelcomeSection(); return false;">Explore</a></li>
-      <li>
-        <a href="https://github.com/edonisth/e-reads" class="nav-link github-link" target="_blank" rel="noopener" aria-label="GitHub profile">
-          <i class="fab fa-github"></i>
-        </a>
-      </li>
-    </ul>
-    <form class="search-form" role="search" aria-label="Site" id="search-form">
-      <input type="search" 
-             class="search-input" 
-             placeholder="Search highlights..." 
-             aria-label="Search highlights"
-             id="search-input">
-      <button type="submit" class="search-button" aria-label="Submit search">
-        <i class="fas fa-search"></i>
+    <div class="navbar-left">
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+        <i class="fas fa-bars"></i>
       </button>
-    </form>
-    <div class="highlights-counter" aria-label="Total highlights">
-      <i class="fas fa-bookmark"></i>
-      <span>122</span>
+    </div>
+    
+    <div class="navbar-brand">
+      <a href="#" class="logo-text" onclick="showWelcomeSection(); return false;" aria-label="Go to home page">Edonis Reads</a>
+    </div>
+    
+    <div class="navbar-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+      </button>
+      <ul class="nav-menu">
+        <li>
+          <a href="https://github.com/edonisth/e-reads" class="nav-link github-link" target="_blank" rel="noopener" aria-label="GitHub profile">
+            <i class="fab fa-github"></i>
+          </a>
+        </li>
+      </ul>
+      <form class="search-form" role="search" aria-label="Site" id="search-form">
+        <input type="search" 
+               class="search-input" 
+               placeholder="Search highlights..." 
+               aria-label="Search highlights"
+               id="search-input">
+        <button type="submit" class="search-button" aria-label="Submit search">
+          <i class="fas fa-search"></i>
+        </button>
+      </form>
+      <div class="highlights-counter" aria-label="Total highlights">
+        <i class="fas fa-bookmark"></i>
+        <span>122</span>
+      </div>
     </div>
   </nav>
 
@@ -2299,14 +2304,13 @@
           </section>
         </article>
       </section>
+    </main>
+  </div>
 
-      <!-- Footer -->
-    <footer class="footer">
-      <div class="footer-content">
-        <p>&copy; 2025 Edonis Reads. All rights reserved.</p>
-        <a href="https://github.com/edonisth/e-reads" target="_blank" rel="noopener">GitHub Repository</a>
-      </div>
-    </footer>
+  <!-- Fixed Footer -->
+  <footer class="footer">
+    Edonis Reads 2025
+  </footer>
 
   <script src="script.js"></script>
 </body>
