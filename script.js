@@ -75,6 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Update URL hash without triggering page reload
             history.replaceState(null, null, `#${bookId}`);
+            
+            // Close sidebar on mobile
+            if (window.innerWidth <= 768) {
+                const sidebar = document.querySelector('.sidebar');
+                if (sidebar) {
+                    sidebar.classList.remove('active');
+                }
+            }
         } else {
             console.error('No matching book content found for:', bookId);
             // If no book content found, show welcome section

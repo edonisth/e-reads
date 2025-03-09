@@ -994,20 +994,112 @@ body.light-mode .book-author {
 }
 
 .quote-card {
-  background: #1a1a2e;
-  padding: 1.8rem;
-  border-radius: 12px;
-  border-left: 4px solid #445a95;
-  font-family: 'Inter', sans-serif;
-  font-style: italic;
-  line-height: 1.8;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.4s ease,
+                background-color 0.3s ease;
+    padding: 2rem 2.618rem; /* Golden ratio padding */
+    background: rgba(26, 26, 46, 0.6);
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    line-height: 1.8;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Opening quote mark */
+.quote-card::before {
+    content: '"';
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-size: 4rem;
+    font-family: 'Playfair Display', Georgia, serif;
+    color: rgba(108, 114, 255, 0.1);
+    line-height: 1;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: left top;
+}
+
+/* Closing quote mark */
+.quote-card::after {
+    content: '"';
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 4rem;
+    font-family: 'Playfair Display', Georgia, serif;
+    color: rgba(108, 114, 255, 0.1);
+    line-height: 1;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: right bottom;
+    transform: scale(0.8) translate(0.5rem, 0.5rem);
+    opacity: 0;
+}
+
+/* Quote text enhancement */
+.quote-card p {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    margin: 0;
+    color: #E0E0FF;
+}
+
+/* Hover animations */
+.quote-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(108, 114, 255, 0.15);
+    background: rgba(26, 26, 46, 0.8);
+}
+
+.quote-card:hover::before {
+    transform: scale(1.2) translate(-0.5rem, -0.5rem) rotate(-8deg);
+    color: rgba(108, 114, 255, 0.2);
+}
+
+.quote-card:hover::after {
+    transform: scale(1) translate(0, 0) rotate(8deg);
+    opacity: 1;
+    color: rgba(108, 114, 255, 0.2);
+}
+
+.quote-card:hover p {
+    transform: scale(1.02);
+}
+
+/* Light mode adjustments */
+body.light-mode .quote-card {
+    background: #ffffff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+body.light-mode .quote-card p {
+    color: #4b5563;
+}
+
+body.light-mode .quote-card:hover {
+    background: #f8f9fc;
+    box-shadow: 0 8px 24px rgba(79, 70, 229, 0.1);
+}
+
+body.light-mode .quote-card::before,
+body.light-mode .quote-card::after {
+    color: rgba(79, 70, 229, 0.1);
+}
+
+body.light-mode .quote-card:hover::before,
+body.light-mode .quote-card:hover::after {
+    color: rgba(79, 70, 229, 0.2);
 }
 
 /* Light Mode Adjustments */
 body.light-mode .theme-list li,
 body.light-mode .quote-card {
   background: #fff;
-  border-color: #445a95;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  border: none;
 }
 
 body.light-mode .theme-list h3 {
@@ -2479,18 +2571,18 @@ body.dark-mode .sidebar::after {
 .book-content[data-book-id="dune"] .quote-card,
 .book-content[data-book-id="dunemessiah"] .quote-card,
 .book-content[data-book-id="childrenofdune"] .quote-card {
-  border-left: 4px solid #b8860b;
   background: linear-gradient(135deg, rgba(26, 26, 46, 0.9), rgba(26, 26, 46, 0.7));
   box-shadow: 0 4px 15px rgba(184, 134, 11, 0.1);
+  border: none;
 }
 
 /* Light mode adjustments */
 body.light-mode .book-content[data-book-id="dune"] .quote-card,
 body.light-mode .book-content[data-book-id="dunemessiah"] .quote-card,
 body.light-mode .book-content[data-book-id="childrenofdune"] .quote-card {
-  border-left: 4px solid #b8860b;
   background: linear-gradient(135deg, rgba(255, 252, 245, 0.9), rgba(255, 248, 235, 0.7));
   box-shadow: 0 4px 15px rgba(184, 134, 11, 0.1);
+  border: none;
 }
 
 /* Spice-colored theme list items */
@@ -3282,6 +3374,12 @@ body.light-mode .form-group textarea:focus-visible {
                 box-shadow 0.4s ease,
                 background-color 0.3s ease;
     padding: 2rem 2.618rem; /* Golden ratio padding */
+    background: rgba(26, 26, 46, 0.6);
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+    line-height: 1.8;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 /* Opening quote mark */
@@ -3319,12 +3417,15 @@ body.light-mode .form-group textarea:focus-visible {
     position: relative;
     z-index: 2;
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    margin: 0;
+    color: #E0E0FF;
 }
 
 /* Hover animations */
 .quote-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(108, 114, 255, 0.15);
+    background: rgba(26, 26, 46, 0.8);
 }
 
 .quote-card:hover::before {
@@ -3343,6 +3444,20 @@ body.light-mode .form-group textarea:focus-visible {
 }
 
 /* Light mode adjustments */
+body.light-mode .quote-card {
+    background: #ffffff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+body.light-mode .quote-card p {
+    color: #4b5563;
+}
+
+body.light-mode .quote-card:hover {
+    background: #f8f9fc;
+    box-shadow: 0 8px 24px rgba(79, 70, 229, 0.1);
+}
+
 body.light-mode .quote-card::before,
 body.light-mode .quote-card::after {
     color: rgba(79, 70, 229, 0.1);
