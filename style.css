@@ -482,331 +482,94 @@ body::before {
 
 /* Navbar Styles */
 .navbar {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1.618fr) auto; /* Golden ratio */
-  align-items: center;
-  padding: 1rem 1.618rem; /* Golden ratio padding */
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
-  background: linear-gradient(135deg, rgba(108, 114, 255, 0.1) 0%, rgba(18, 18, 40, 0.95) 100%);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid #445a95;
-  gap: 1.618rem; /* Golden ratio spacing */
-}
-
-/* Left section */
-.navbar-left {
+  background: rgba(20, 20, 35, 0.95);
+  backdrop-filter: blur(8px);
+  padding: 0.75rem 1.5rem;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  max-width: 1200px;
+  margin: 1rem auto;
+  border-radius: 12px;
 }
 
-/* Center section */
-.navbar-brand {
-  grid-column: 2;
-  display: flex;
-  justify-content: center;
-  margin: 0;
-  flex: none;
-}
-
-/* Right section */
-.navbar-right {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  justify-content: flex-end;
-}
-
-.logo-text {
-  font-family: 'Space Mono', monospace;
-  font-size: calc(1rem * 1.618); /* Golden ratio font size */
-  font-weight: 700;
-  background: linear-gradient(135deg, #6c72ff 0%, #1E90FF 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-decoration: none;
-  position: relative;
-  padding: 0.5rem 0.809rem; /* Half golden ratio padding */
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  text-transform: none;
-  letter-spacing: -0.5px;
-  display: inline-block;
-}
-
-.logo-text::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(108, 114, 255, 0.2), rgba(30, 144, 255, 0.2));
-  border-radius: 0.5rem;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.logo-text:hover {
-  transform: translateY(-2px);
-  text-shadow: 0 2px 10px rgba(108, 114, 255, 0.3);
-}
-
-.logo-text:hover::before {
-  opacity: 1;
-}
-
-/* Hover effect with perfect square */
-.logo-text::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 0.5rem;
-  padding: 2px;
-  background: linear-gradient(135deg, #6c72ff 0%, #1E90FF 100%);
-  -webkit-mask: 
-      linear-gradient(#fff 0 0) content-box, 
-      linear-gradient(#fff 0 0);
-  mask: 
-      linear-gradient(#fff 0 0) content-box, 
-      linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-/* Adjust other elements for symmetry */
-.sidebar-toggle,
-.theme-toggle {
-  width: 2.618rem; /* Golden ratio size */
-  height: 2.618rem;
-  border-radius: 0.5rem;
-}
-
-.search-form {
-  display: flex;
-  gap: 0.5rem;
-  margin: 0;
-}
-
-.search-input {
-  width: calc(2.618rem * 3); /* Golden ratio × 3 */
-  transition: width 0.3s ease;
-}
-
-.search-input:focus {
-  width: calc(2.618rem * 4); /* Golden ratio × 4 */
-}
-
-.highlights-counter {
-  padding: 0.5rem 0.809rem; /* Half golden ratio padding */
-}
-
-/* Mobile adjustments with preserved ratios */
+/* Mobile adjustments for navbar */
 @media (max-width: 768px) {
   .navbar {
-    grid-template-columns: auto auto auto;
-    padding: 0.809rem; /* Half golden ratio */
-    gap: 0.809rem;
-  }
-
-  .logo-text {
-    font-size: calc(1rem * 1.309); /* Reduced golden ratio for mobile */
-  }
-
-  .search-input {
-    width: calc(2.618rem * 2);
-  }
-
-  .search-input:focus {
-    width: calc(2.618rem * 3);
-  }
-
-  .sidebar-toggle,
-  .theme-toggle {
-    width: 2.309rem;
-    height: 2.309rem;
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0;
+    padding: 0.5rem 1rem;
   }
 }
 
-/* Hide all book content sections by default */
-.book-content {
-  display: none;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
-.book-content.active {
-  display: block;
-  opacity: 1;
-  animation: fadeIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.sidebar-toggle:hover {
-  background: #1E90FF;
-  transform: scale(1.1);
-}
-
-/* Theme Toggle Button */
-.theme-toggle {
-  background: #445a95;
+.sidebar-toggle {
+  background: rgba(108, 114, 255, 0.1);
   border: none;
-  color: white;
-  font-size: 1.25rem;
-  width: 40px;
-  height: 40px;
+  color: #E0E0FF;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.theme-toggle:hover {
-  background: #1E90FF;
-  transform: scale(1.1);
-}
-
-/* GitHub Icon */
-.github-link {
-  font-size: 1.5rem;
-  color: #E0E0FF;
-  transition: color 0.3s ease, transform 0.2s ease, background 0.3s ease;
-  background: rgba(68, 90, 149, 0.2); /* Light background for contrast */
-  padding: 0.5rem; /* Add padding for consistency */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-}
-
-.github-link:hover {
-  color: #1E90FF;
-  background: rgba(68, 90, 149, 0.4); /* Darker background on hover */
-  transform: translateY(-2px); /* Slight lift on hover */
-}
-
-/* Nav Menu */
-.nav-menu {
-  display: flex;
-  gap: 2rem; /* Increased gap for better spacing */
-  list-style: none;
-  margin-left: auto;
-}
-
-.nav-link {
-  color: #E0E0FF;
-  text-decoration: none;
-  position: relative;
-  padding: 0.5rem 1rem;
-  transition: color 0.3s ease, background 0.3s ease, transform 0.2s ease;
-  background: rgba(68, 90, 149, 0.2); /* Light background for contrast */
-  border-radius: 8px; /* Rounded corners */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-}
-
-.nav-link:hover {
-  color: #1E90FF;
-  background: rgba(68, 90, 149, 0.4); /* Darker background on hover */
-  transform: translateY(-2px); /* Slight lift on hover */
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: #1E90FF; /* Updated to navy blue */
-  transition: width 0.3s ease;
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
-
-/* Search Form */
-.search-form {
-  display: flex;
-  gap: 0.5rem;
-  position: relative;
-}
-
-.search-input {
-  background: #1a1a2e;
-  border: 1px solid #445a95;
-  color: #E0E0FF;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
   transition: all 0.3s ease;
-  width: 200px;
+  font-size: 1.2rem;
 }
 
-.search-input:focus {
-  outline: none;
-  box-shadow: 0 0 15px #445a95;
-  width: 250px; /* Expand on focus for better usability */
+.sidebar-toggle:hover {
+  background: rgba(108, 114, 255, 0.2);
+  transform: translateY(-2px);
+  color: #6c72ff;
 }
 
-.search-button {
-  background: #445a95;
-  border: none;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.3s ease;
+/* Update the sidebar toggle icon rotation when sidebar is collapsed */
+.sidebar.collapsed ~ * .sidebar-toggle i {
+  transform: rotate(180deg);
 }
 
-.search-button:hover {
-  background: #1E90FF;
+@media (max-width: 768px) {
+  .sidebar-toggle {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+  }
 }
 
-.search-button:focus {
-  background: #1E90FF;
-  outline: 2px solid white;
-}
-
-.highlights-counter {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: #445a95;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  box-shadow: 0 4px 15px rgba(108, 114, 255, 0.25);
-}
-
-/* Container & Sidebar */
 .container {
-  display: flex;
-  flex: 1;
-  min-height: 0;
-  position: relative;
-  transition: all 0.3s ease;
-  max-width: 1800px;
+  width: 100%;
+  max-width: 1600px;
   margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  min-height: 100vh;
+  position: relative;
 }
 
 .sidebar {
   width: 300px;
-  background: #111122;
-  padding: 2rem;
+  height: calc(100vh - 2rem);
+  position: sticky;
+  top: 5rem;
+  background: rgba(20, 20, 35, 0.95);
+  padding: 1.5rem;
   overflow-y: auto;
-  height: calc(100vh - 60px - 3rem);
-  position: fixed;
-  top: 60px;
-  left: 0;
-  transition: transform 0.3s ease, background 0.3s ease;
-  z-index: 10;
-  scrollbar-width: thin; /* For Firefox */
-  scrollbar-color: rgba(255, 255, 255, 0.2) rgba(0, 0, 0, 0.1); /* For Firefox */
+  border-radius: 12px;
+  margin-right: 1.5rem;
+  transition: all 0.3s ease;
 }
 
 .sidebar.collapsed {
@@ -1109,29 +872,58 @@ body.light-mode .theme-list h3 {
 /* Main Content */
 .content {
   flex: 1;
+  margin-left: 300px; /* Width of sidebar */
   padding: 2rem;
-  background: #0a0a12;
-  min-height: calc(100vh - 60px - 3rem);
-  overflow-y: auto;
-  transition: all 0.3s ease;
-  margin-left: 300px;
-  padding-bottom: calc(2rem + 32px); /* Adjusted for smaller footer height */
+  min-height: calc(100vh - 60px); /* Full height minus navbar */
+  padding-bottom: calc(2rem + 32px); /* Add padding for footer */
+  transition: all 0.3s ease; /* Smooth transition for all changes */
+  width: calc(100% - 300px); /* Adjust width to account for sidebar */
+}
+
+/* Collapsed sidebar state */
+.sidebar.collapsed {
+  transform: translateX(-300px);
 }
 
 .sidebar.collapsed ~ .content {
-  margin-left: 0;
+  margin-left: auto;
+  margin-right: auto;
   max-width: 1200px;
-  padding: 2rem 4rem;
-  margin: 0 auto;
+  padding-left: 4rem;
+  padding-right: 4rem;
+  width: 100%; /* Full width when sidebar is collapsed */
 }
 
-.content-section {
-  max-width: 1200px;
-  margin: 0 auto 3rem auto;
+/* Add a wrapper for content sections to ensure proper centering */
+.content-section, .book-content {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
   background: #111122;
-  padding: 2rem 3rem;
+  padding: 2rem;
   border-radius: 8px;
-  border: 1px solid #445a95;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(68, 90, 149, 0.3);
+  transition: all 0.3s ease;
+}
+
+/* Book summary styles */
+.book-summary {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Mobile adjustments for content sections */
+@media (max-width: 768px) {
+  .content-section, .book-content {
+    padding: 1.5rem;
+    max-width: 100%;
+  }
+  
+  .book-summary {
+    padding: 1rem 0;
+  }
 }
 
 blockquote {
@@ -1243,8 +1035,9 @@ body.light-mode .footer a:hover {
 @media (max-width: 768px) {
   /* Navbar adjustments */
   .navbar {
-    padding: 0.75rem;
-    gap: 1rem;
+    margin: 0;
+    border-radius: 0;
+    padding: 0.5rem 1rem;
   }
 
   .logo-text {
@@ -1277,12 +1070,13 @@ body.light-mode .footer a:hover {
 
   /* Sidebar adjustments */
   .sidebar {
-    width: 100%;
-    height: calc(100vh - 60px);
     position: fixed;
-    top: 60px;
-    left: 0;
-    transform: translateX(-100%);
+    left: -300px;
+    top: 0;
+    margin: 0;
+    height: 100vh;
+    border-radius: 0;
+    width: 300px;
     z-index: 1000;
   }
 
@@ -1294,6 +1088,16 @@ body.light-mode .footer a:hover {
   .content {
     margin-left: 0;
     padding: 1rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .sidebar.collapsed ~ .content {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    padding: 1rem;
+    width: 100%;
   }
 
   .content-section {
@@ -3614,6 +3418,15 @@ body {
     transition: transform 0.3s ease;
     z-index: 10;
     border-right: 1px solid rgba(68, 90, 149, 0.3);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar.active {
+    transform: translateX(0);
+}
+
+.sidebar.collapsed {
+    transform: translateX(-300px);
 }
 
 /* Content adjustments */
@@ -3622,16 +3435,47 @@ body {
     margin-left: 300px; /* Width of sidebar */
     padding: 2rem;
     min-height: calc(100vh - 60px); /* Full height minus navbar */
-    padding-bottom: 2rem; /* Add some bottom padding */
+    padding-bottom: calc(2rem + 32px); /* Add padding for footer */
+    transition: all 0.3s ease; /* Smooth transition for all changes */
+    max-width: calc(100% - 300px); /* Adjust width to account for sidebar */
 }
 
-/* Collapsed sidebar state */
-.sidebar.collapsed {
-    transform: translateX(-300px);
-}
-
+/* Collapsed sidebar state - center content */
 .sidebar.collapsed ~ .content {
-    margin-left: 0;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1200px; /* Maximum width for content */
+    width: 100%; /* Full width when sidebar is collapsed */
+    padding-left: 4rem;
+    padding-right: 4rem;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-300px);
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .content {
+        margin-left: 0;
+        padding: 1rem;
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    .sidebar.collapsed ~ .content {
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
 }
 
 /* Footer Styles - Full Width */
@@ -3671,6 +3515,15 @@ body {
     transition: transform 0.3s ease;
     z-index: 10;
     border-right: 1px solid rgba(68, 90, 149, 0.3);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar.active {
+    transform: translateX(0);
+}
+
+.sidebar.collapsed {
+    transform: translateX(-300px);
 }
 
 /* Mobile adjustments for footer */
@@ -3800,5 +3653,184 @@ body.light-mode .footer {
   
   .sidebar {
     height: calc(100vh - 60px - 3rem);
+  }
+}
+
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block !important;
+}
+
+.book-content {
+    display: none;
+}
+
+.book-content.active {
+    display: block !important;
+}
+
+/* Welcome section specific styles */
+#welcome-section.active {
+    display: block !important;
+}
+
+/* Main content container */
+.content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* Book content layout */
+.book-summary {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.logo-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #6c72ff 0%, #1E90FF 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+    padding: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.logo-text:hover {
+    transform: translateY(-1px);
+}
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.theme-toggle, 
+.github-link {
+    background: rgba(108, 114, 255, 0.1);
+    border: none;
+    color: #E0E0FF;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.theme-toggle:hover, 
+.github-link:hover {
+    background: rgba(108, 114, 255, 0.2);
+    transform: translateY(-2px);
+    color: #6c72ff;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        margin: 0;
+        border-radius: 0;
+        padding: 0.5rem 1rem;
+    }
+
+    .logo-text {
+        font-size: 1.25rem;
+    }
+
+    .theme-toggle, 
+    .github-link {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1rem;
+    }
+}
+
+/* Hide all add book related elements */
+.add-book-container,
+.add-book-button {
+  display: none !important;
+}
+
+/* Floating Sidebar Toggle */
+.floating-sidebar-toggle {
+  position: fixed;
+  left: 4px; /* Closer to the edge */
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(30, 144, 255, 0.15); /* Much more subtle background */
+  border: none;
+  color: #E0E0FF;
+  width: 22px;
+  height: 60px;
+  border-radius: 0 6px 6px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  padding: 0;
+  box-shadow: 1px 0 5px rgba(0, 0, 0, 0.1); /* Reduced shadow */
+}
+
+.floating-sidebar-toggle:hover {
+  background: rgba(30, 144, 255, 0.25); /* Slightly more visible on hover */
+  width: 26px; /* Minimal expansion on hover */
+  box-shadow: 1px 0 8px rgba(0, 0, 0, 0.15);
+}
+
+.floating-sidebar-toggle i {
+  transition: transform 0.3s ease;
+  font-size: 0.9rem; /* Smaller icon */
+}
+
+/* When sidebar is active, move the button */
+.sidebar.active ~ * .floating-sidebar-toggle {
+  left: 300px; /* Position right at the edge of the sidebar */
+}
+
+/* Light mode adjustments */
+body.light-mode .floating-sidebar-toggle {
+  background: rgba(79, 70, 229, 0.15); /* Subtle background in light mode */
+  color: #4f46e5; /* Adjust color for light mode */
+  box-shadow: 1px 0 5px rgba(79, 70, 229, 0.1);
+}
+
+body.light-mode .floating-sidebar-toggle:hover {
+  background: rgba(79, 70, 229, 0.25);
+  box-shadow: 1px 0 8px rgba(79, 70, 229, 0.15);
+}
+
+@media (max-width: 768px) {
+  .floating-sidebar-toggle {
+    width: 20px;
+    height: 50px;
+    left: 2px;
+    box-shadow: 1px 0 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .floating-sidebar-toggle:hover {
+    width: 24px;
+  }
+  
+  .sidebar.active ~ * .floating-sidebar-toggle {
+    left: 300px;
   }
 }

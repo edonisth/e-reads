@@ -5,6 +5,52 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.querySelector('.content');
     const sidebar = document.querySelector('.sidebar');
     
+    // Initialize logo click handler
+    const logoLink = document.querySelector('.logo-text');
+    if (logoLink) {
+        logoLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Hide all content sections first
+            document.querySelectorAll('.content-section, .book-content').forEach(section => {
+                section.style.display = 'none';
+                section.classList.remove('active');
+            });
+            
+            // Show welcome section
+            if (welcomeSection) {
+                welcomeSection.style.display = 'block';
+                welcomeSection.classList.add('active');
+                welcomeSection.setAttribute('style', 'display: block !important');
+            }
+            
+            // Update featured books
+            updateFeaturedBooks();
+            
+            // Clear URL hash without triggering hashchange
+            history.pushState('', document.title, window.location.pathname);
+        });
+    }
+
+    // Handle hash changes
+    window.addEventListener('hashchange', function() {
+        const hash = window.location.hash.substring(1);
+        if (!hash) {
+            // If no hash, show welcome section
+            document.querySelectorAll('.content-section, .book-content').forEach(section => {
+                section.style.display = 'none';
+                section.classList.remove('active');
+            });
+            if (welcomeSection) {
+                welcomeSection.style.display = 'block';
+                welcomeSection.classList.add('active');
+                welcomeSection.setAttribute('style', 'display: block !important');
+                updateFeaturedBooks();
+            }
+        } else if (document.getElementById(hash)) {
+            showBookContent(hash);
+        }
+    });
+    
     // Remove any remaining Ecce Homo elements
     removeEcceHomoElements();
     
@@ -49,16 +95,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function showBookContent(bookId) {
         console.log('showBookContent called with bookId:', bookId);
         
-        // Add check to ignore eccehomo book ID
-        if (bookId === 'eccehomo') {
-            console.log('Ignoring eccehomo book ID');
-            if (welcomeSection) welcomeSection.classList.add('active');
-            return;
-        }
-        
         // Hide welcome section and all book contents
         if (welcomeSection) welcomeSection.classList.remove('active');
-        document.querySelectorAll('.book-content').forEach(content => content.classList.remove('active'));
+        document.querySelectorAll('.book-content').forEach(content => {
+            content.classList.remove('active');
+            content.style.display = 'none';
+        });
         
         // Hide search results if they exist
         const searchResults = document.getElementById('search-results');
@@ -67,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // Show the selected book content
-        const activeBookContent = document.querySelector(`#${bookId}`);
+        const activeBookContent = document.getElementById(bookId);
         if (activeBookContent) {
             console.log('Found book content element:', bookId);
             activeBookContent.classList.add('active');
@@ -86,15 +128,11 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             console.error('No matching book content found for:', bookId);
             // If no book content found, show welcome section
-            if (welcomeSection) welcomeSection.classList.add('active');
-        }
-        
-        // Reset all other content sections display
-        document.querySelectorAll('.content-section').forEach(section => {
-            if (section.id !== bookId && section.id !== 'search-results') {
-                section.style.display = 'none';
+            if (welcomeSection) {
+                welcomeSection.classList.add('active');
+                welcomeSection.style.display = 'block';
             }
-        });
+        }
     }
 
     // Handle book link clicks (including dynamically added ones)
@@ -103,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (bookLink) {
             e.preventDefault();
             const bookId = bookLink.getAttribute('data-book-id');
+            console.log('Book link clicked:', bookId);
             showBookContent(bookId);
         }
     });
@@ -114,7 +153,10 @@ document.addEventListener('DOMContentLoaded', () => {
             showBookContent(hash);
         } else {
             // Show welcome section if no valid hash
-            if (welcomeSection) welcomeSection.classList.add('active');
+            if (welcomeSection) {
+                welcomeSection.classList.add('active');
+                welcomeSection.style.display = 'block';
+            }
         }
     }
 
@@ -284,12 +326,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const icon = toggleButton.querySelector('i');
 
     function toggleSidebar() {
-        if (window.innerWidth > 768) {
-            sidebar.classList.toggle('collapsed');
-        } else {
-            sidebar.classList.toggle('active');
-        }
+        const isExpanding = !sidebar.classList.contains('active');
+        sidebar.classList.toggle('active');
+        
+        // Toggle collapsed class for proper content centering
+        sidebar.classList.toggle('collapsed', !isExpanding);
+        
+        // Update icon to show the next action (> for expand, < for collapse)
+        icon.className = isExpanding ? 'fas fa-chevron-left' : 'fas fa-chevron-right';
     }
+
+    // Set initial icon state and classes
+    icon.className = 'fas fa-chevron-right';
+    sidebar.classList.add('collapsed'); // Ensure sidebar starts collapsed
 
     // Check if sidebar is scrolled to bottom
     function initSidebarScrollDetection() {
@@ -321,12 +370,11 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleSidebar();
     });
 
-    // Remove the document click handler and keep only the resize handler
+    // Update icon when sidebar is closed on resize
     window.addEventListener('resize', () => {
         if (window.innerWidth > 768) {
             sidebar.classList.remove('active');
-        } else {
-            sidebar.classList.remove('collapsed');
+            icon.className = 'fas fa-chevron-right';
         }
     });
 
@@ -667,15 +715,30 @@ document.addEventListener('DOMContentLoaded', () => {
     window.showWelcomeSection = function() {
         const welcomeSection = document.getElementById('welcome-section');
         if (welcomeSection) {
+            // First hide all content
             document.querySelectorAll('.content-section, .book-content').forEach(section => {
                 section.style.display = 'none';
                 section.classList.remove('active');
             });
+            
+            // Hide search results if they exist
+            const searchResults = document.getElementById('search-results');
+            if (searchResults) {
+                searchResults.style.display = 'none';
+            }
+            
+            // Show welcome section
             welcomeSection.style.display = 'block';
             welcomeSection.classList.add('active');
             
+            // Force display with !important
+            welcomeSection.setAttribute('style', 'display: block !important');
+            
             // Update featured books to show only the last 3
             updateFeaturedBooks();
+            
+            // Clear URL hash
+            history.pushState('', document.title, window.location.pathname);
         }
     };
 
@@ -1195,13 +1258,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const descriptionsContainer = themeItem.querySelector('.theme-descriptions');
                 const descIndex = descriptionsContainer.querySelectorAll('.theme-description').length;
                 
-                const newDesc = document.createElement('textarea');
-                newDesc.className = 'theme-description';
-                newDesc.setAttribute('data-theme-index', themeIndex);
-                newDesc.setAttribute('data-desc-index', descIndex);
-                newDesc.placeholder = 'Additional description';
+                const textarea = document.createElement('textarea');
+                textarea.className = 'theme-description';
+                textarea.setAttribute('data-theme-index', themeIndex);
+                textarea.setAttribute('data-desc-index', descIndex);
+                textarea.placeholder = 'Additional description';
                 
-                descriptionsContainer.appendChild(newDesc);
+                descriptionsContainer.appendChild(textarea);
             });
         });
     }
@@ -1617,12 +1680,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (descText) descriptions.push(descText);
                 });
                 
-                if (descriptions.length > 0) {
-                    updatedBookData.themes.push({
-                        title: themeTitle,
-                        description: descriptions
-                    });
-                }
+                updatedBookData.themes.push({
+                    title: themeTitle,
+                    description: descriptions
+                });
             });
             
             // Collect quotes

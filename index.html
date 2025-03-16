@@ -61,65 +61,28 @@
   <a href="#main-content" class="skip-link">Skip to main content</a>
   
   <!-- Navbar -->
-  <nav class="navbar" role="navigation" aria-label="Main navigation">
-    <div class="navbar-left">
-      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
-        <i class="fas fa-bars"></i>
-      </button>
-    </div>
-    
+  <nav class="navbar">
     <div class="navbar-brand">
-      <a href="#" class="logo-text" onclick="showWelcomeSection(); return false;" aria-label="Go to home page">Edonis Reads</a>
+      <a href="javascript:void(0)" class="logo-text">Edonis Reads</a>
     </div>
-    
-    <div class="navbar-right">
-      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <div class="navbar-actions">
+      <button class="theme-toggle" aria-label="Toggle dark mode">
         <i class="fas fa-moon"></i>
       </button>
-      <ul class="nav-menu">
-        <li>
-          <a href="https://github.com/edonisth/e-reads" class="nav-link github-link" target="_blank" rel="noopener" aria-label="GitHub profile">
-            <i class="fab fa-github"></i>
-          </a>
-        </li>
-      </ul>
-      <form class="search-form" role="search" aria-label="Site" id="search-form">
-        <input type="search" 
-               class="search-input" 
-               placeholder="Search highlights..." 
-               aria-label="Search highlights"
-               id="search-input">
-        <button type="submit" class="search-button" aria-label="Submit search">
-          <i class="fas fa-search"></i>
-        </button>
-      </form>
-      <div class="highlights-counter" aria-label="Total highlights">
-        <i class="fas fa-bookmark"></i>
-        <span>122</span>
-      </div>
+      <a href="https://github.com/edonis" class="github-link" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-github"></i>
+      </a>
     </div>
   </nav>
 
   <div class="container">
+    <!-- Sidebar Toggle Button -->
+    <button class="floating-sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+      <i class="fas fa-chevron-right"></i>
+    </button>
     <!-- Sidebar -->
     <aside class="sidebar" role="complementary" aria-label="Book navigation">
       <h2 class="sidebar-title">Book Library</h2>
-      
-      <!-- Add Book Button -->
-      <div class="add-book-container">
-        <label for="book-upload" class="add-book-button">
-          <i class="fas fa-plus"></i> Add Book
-        </label>
-        <input type="file" id="book-upload" accept=".json" class="file-input" aria-label="Upload book data">
-        
-        <!-- Cover upload input -->
-        <input type="file" id="cover-upload" accept="image/*" class="file-input" aria-label="Upload book cover" style="display: none;">
-        
-        <button id="manual-book-entry" class="add-book-button" style="margin-top: 10px;" onclick="document.getElementById('cover-upload').click();">
-          <i class="fas fa-edit"></i> Create Book Entry
-        </button>
-      </div>
-      
       <ul class="book-list" id="book-list">
         <!-- Cypherpunks Book -->
         <li class="book-item">
@@ -351,6 +314,19 @@
             <div class="book-info">
               <h3 class="book-title">On Writing: A Memoir of the Craft</h3>
               <p class="book-author">Stephen King</p>
+            </div>
+          </a>
+        </li>
+
+        <!-- Add 1984 to sidebar book list -->
+        <li class="book-item">
+          <a href="#1984" data-book-id="1984" class="book-link">
+            <div class="book-cover">
+              <img src="covers/1984-cover.jpg" alt="1984 Cover" loading="lazy">
+            </div>
+            <div class="book-info">
+              <h3 class="book-title">1984</h3>
+              <p class="book-author">George Orwell</p>
             </div>
           </a>
         </li>
@@ -2304,6 +2280,135 @@
           </section>
         </article>
       </section>
+
+      <!-- 1984 Content -->
+      <section class="content-section book-content" id="1984" data-book-id="1984" aria-labelledby="1984-title">
+        <article class="book-summary">
+          <header class="book-header">
+            <h1 class="book-title-main" id="1984-title">George Orwell - 1984</h1>
+          </header>
+          <div class="book-intro">
+            <h3>Overview</h3>
+            <p>Published in 1949, "1984" is George Orwell's dystopian masterpiece that envisions a totalitarian future where critical thought is suppressed under a regime of surveillance and control. The novel follows Winston Smith, a low-ranking party member who secretly rebels against the omnipresent government of Oceania. Through Winston's struggle, Orwell explores themes of surveillance, censorship, totalitarianism, and the manipulation of truth.</p>
+            <p>Set in a world divided into three superstates—Oceania, Eurasia, and Eastasia—the novel presents a society where the Party maintains power through pervasive surveillance, manipulation of language and history, and the suppression of individual thought and desire. The story serves as both a gripping narrative and a powerful warning about the dangers of totalitarian control.</p>
+          </div>
+          <section class="key-themes">
+            <h2 class="section-title">Key Themes</h2>
+            <ul class="theme-list">
+              <li>
+                <h3>Totalitarian Control</h3>
+                <p>The novel examines how a totalitarian regime maintains power through surveillance, manipulation of language, control of information, and the destruction of individual identity. The Party's methods of control extend beyond physical oppression to psychological manipulation and the rewriting of history.</p>
+                <p>Through institutions like the Ministry of Truth and devices like the telescreen, Orwell illustrates how technology can be used as a tool of oppression rather than liberation. The Party's slogan "Big Brother is Watching You" emphasizes the constant surveillance that shapes behavior and thought.</p>
+              </li>
+              <li>
+                <h3>The Nature of Truth and Reality</h3>
+                <p>The Party's ability to manipulate reality through the control of information and memory raises fundamental questions about the nature of truth. The concept of "doublethink" - simultaneously accepting two contradictory beliefs - demonstrates how psychological manipulation can override objective reality.</p>
+                <p>Winston's job at the Ministry of Truth, where he alters historical documents to match the Party's current narrative, illustrates how the control of the past enables control of the present. The Party's slogan "Who controls the past controls the future. Who controls the present controls the past" encapsulates this theme.</p>
+              </li>
+              <li>
+                <h3>Language and Thought</h3>
+                <p>Through Newspeak, the Party's artificially constructed language, Orwell explores how controlling language can limit the capacity for complex thought. By eliminating words and simplifying language, the Party aims to make certain ideas literally unthinkable.</p>
+                <p>The novel demonstrates how language shapes consciousness and how limiting language can restrict the ability to conceptualize resistance or alternatives to oppression. The reduction of vocabulary and the elimination of nuance serve to prevent the formation of subversive ideas.</p>
+              </li>
+              <li>
+                <h3>Surveillance and Privacy</h3>
+                <p>The omnipresent surveillance state, symbolized by Big Brother and implemented through technology and human informants, explores the psychological effects of living under constant observation. The loss of privacy leads to the suppression of individuality and authentic human relationships.</p>
+                <p>The novel anticipates modern concerns about surveillance technology and the balance between security and personal freedom. The telescreens that both transmit and receive information represent an early vision of how technology could be used for mass surveillance.</p>
+              </li>
+              <li>
+                <h3>Individual Resistance</h3>
+                <p>Winston's rebellion, though ultimately futile, raises questions about the possibility and nature of resistance under totalitarian control. His attempts to maintain his individuality through private acts of rebellion highlight the importance of personal consciousness and memory.</p>
+                <p>The relationship between Winston and Julia represents both an escape from and a rebellion against the Party's control over human emotions and relationships. Their love affair becomes an act of political rebellion against the Party's suppression of human intimacy.</p>
+              </li>
+              <li>
+                <h3>The Power of Memory</h3>
+                <p>Memory plays a crucial role in the novel as both a source of resistance and a target of control. Winston's struggle to maintain accurate memories against the Party's constant historical revisions represents the broader human struggle to preserve truth against power.</p>
+                <p>The concept of "memory holes" where inconvenient documents are destroyed symbolizes how totalitarian regimes attempt to erase contradictory evidence from history, making independent memory a form of rebellion.</p>
+              </li>
+              <li>
+                <h3>Technology as Control</h3>
+                <p>The novel explores how technological advancement can serve oppression rather than human progress. The Party uses technology not to improve living standards but to maintain power through surveillance and control.</p>
+                <p>The telescreens, memory holes, and speakwrites represent how technology can be perverted from its potential to enhance human life into tools for limiting human freedom and expression.</p>
+              </li>
+              <li>
+                <h3>The Role of the Proles</h3>
+                <p>The proletariat (proles) in the novel represent both hope and despair. While Winston sees them as the only force capable of overthrowing the Party, their political unconsciousness and the Party's control mechanisms keep them docile.</p>
+                <p>Orwell explores how mass entertainment, artificial scarcity, and controlled information can be used to prevent class consciousness and maintain social control.</p>
+              </li>
+              <li>
+                <h3>Human Nature and Power</h3>
+                <p>Through O'Brien's explanations in the Ministry of Love, the novel presents a dark vision of human nature and power. The Party seeks power not as a means to an end, but as an end in itself, reflecting a pessimistic view of human political organization.</p>
+                <p>The book suggests that the desire for power over others is a fundamental human drive that can override all other considerations, including truth, love, and progress.</p>
+              </li>
+            </ul>
+          </section>
+          <section class="significant-quotes">
+            <h2 class="section-title">Significant Quotes</h2>
+            <div class="quote-grid">
+              <blockquote class="quote-card">
+                <p>"War is Peace. Freedom is Slavery. Ignorance is Strength."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"Big Brother is Watching You."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"Who controls the past controls the future. Who controls the present controls the past."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"The best books... are those that tell you what you know already."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"If you want a picture of the future, imagine a boot stamping on a human face—forever."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"Until they become conscious they will never rebel, and until after they have rebelled they cannot become conscious."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"Perhaps one did not want to be loved so much as to be understood."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"Freedom is the freedom to say that two plus two make four. If that is granted, all else follows."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"We shall meet in the place where there is no darkness."</p>
+              </blockquote>
+              <blockquote class="quote-card">
+                <p>"The choice for mankind lies between freedom and happiness and for the great bulk of mankind, happiness is better."</p>
+              </blockquote>
+            </div>
+          </section>
+          <section class="key-themes">
+            <h2 class="section-title">Literary and Historical Significance</h2>
+            <ul class="theme-list">
+              <li>
+                <h3>Political Impact</h3>
+                <p>The novel has profoundly influenced political discourse, providing a vocabulary for discussing totalitarianism and surveillance. Terms like "Big Brother," "thoughtcrime," and "Orwellian" have entered common usage as ways to describe governmental overreach and surveillance.</p>
+                <p>The work continues to resonate with contemporary debates about privacy, state surveillance, and the manipulation of truth in politics. Its warnings about the relationship between language, thought, and power remain particularly relevant in the age of mass media and digital communication.</p>
+              </li>
+              <li>
+                <h3>Cultural Influence</h3>
+                <p>The novel has inspired numerous adaptations across various media and influenced countless other dystopian works. Its impact extends beyond literature into popular culture, where its themes and imagery are frequently referenced.</p>
+                <p>The book's warnings about totalitarianism and the manipulation of truth continue to find new relevance in different political and social contexts. Its influence can be seen in everything from dystopian fiction to political commentary.</p>
+              </li>
+              <li>
+                <h3>Contemporary Relevance</h3>
+                <p>Many of the novel's concerns about surveillance, privacy, and the manipulation of information have become increasingly relevant in the digital age. The rise of data collection, social media, and digital surveillance has given new meaning to Orwell's warnings.</p>
+                <p>The book's insights into how language can be used to limit and control thought remain pertinent to discussions about media manipulation and political discourse. The concept of "Newspeak" resonates with modern concerns about the simplification and manipulation of language in political and social media contexts.</p>
+              </li>
+              <li>
+                <h3>Historical Context</h3>
+                <p>Written in the aftermath of World War II and during the rise of Stalinist Russia, the novel reflects the anxieties of its time about totalitarian control and the abuse of power. Orwell drew from his observations of both fascist and communist regimes in crafting his dystopian vision.</p>
+                <p>The novel's setting and themes were influenced by Orwell's experiences with totalitarian movements and his concerns about the direction of modern society. His vision of a surveillance state was informed by the technologies and political developments of his era.</p>
+              </li>
+              <li>
+                <h3>Literary Style</h3>
+                <p>Orwell's clear, direct prose style serves as a deliberate contrast to the obfuscating language of the Party. His commitment to linguistic clarity reflects his belief that clear writing is essential for clear thinking and political resistance.</p>
+                <p>The novel's structure, moving from hope to despair, reinforces its themes about the power of totalitarian control and the difficulty of maintaining individual consciousness against collective pressure.</p>
+              </li>
+            </ul>
+          </section>
+        </article>
+      </section>
     </main>
   </div>
 
@@ -2313,5 +2418,11 @@
   </footer>
 
   <script src="script.js"></script>
+  
+  <!-- Hidden file inputs -->
+  <div style="display: none;">
+    <input type="file" id="book-upload" accept=".json" class="file-input" aria-label="Upload book data">
+    <input type="file" id="cover-upload" accept="image/*" class="file-input" aria-label="Upload book cover">
+  </div>
 </body>
 </html>
