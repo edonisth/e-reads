@@ -52,8 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // Remove any remaining Ecce Homo elements
-    removeEcceHomoElements();
+    // Remove any remaining Ecce Homo elements - COMMENTED OUT TO ALLOW ECCE HOMO TO DISPLAY
+    // removeEcceHomoElements();
     
     // Load books from localStorage
     loadBooksFromStorage();
@@ -64,7 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize sidebar scroll detection
     initSidebarScrollDetection();
     
-    // Function to remove any remaining Ecce Homo elements
+    // Function to remove any remaining Ecce Homo elements - COMMENTED OUT TO ALLOW ECCE HOMO TO DISPLAY
+    /*
     function removeEcceHomoElements() {
         // Remove from sidebar
         const ecceHomoItem = document.querySelector('.book-link[data-book-id="eccehomo"]');
@@ -91,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Removed Ecce Homo from localStorage');
         }
     }
+    */
     
     // Function to show a specific book content
     function showBookContent(bookId) {
@@ -432,31 +434,81 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Theme Toggle Functionality
-    const themeToggle = document.getElementById('themeToggle');
+    const themeToggle = document.querySelector('.theme-toggle');
+    console.log('Theme toggle element:', themeToggle);
 
-    // Check for saved theme in localStorage
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        body.classList.add(savedTheme);
+    // Initialize the default class on body
+    function initializeTheme() {
+        // Default to dark-mode (site's original design)
+        const body = document.body;
+        
+        // Check for saved theme in localStorage
+        const savedTheme = localStorage.getItem('theme');
+        console.log('Saved theme:', savedTheme);
+        
+        if (savedTheme === 'light-mode') {
+            body.classList.add('light-mode');
+            body.classList.remove('dark-mode');
+        } else {
+            // Default to dark-mode
+            body.classList.add('dark-mode');
+            body.classList.remove('light-mode');
+        }
+        
+        // Update the icon based on current theme
         updateThemeIcon();
     }
 
     // Toggle Theme
-    themeToggle.addEventListener('click', () => {
-        body.classList.toggle('light-mode');
-        updateThemeIcon();
-        const currentTheme = body.classList.contains('light-mode') ? 'light-mode' : '';
-        localStorage.setItem('theme', currentTheme);
-    });
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+            console.log('Theme toggle clicked');
+            const body = document.body;
+            
+            // Toggle between light and dark mode
+            if (body.classList.contains('light-mode')) {
+                // Switch to dark mode
+                body.classList.remove('light-mode');
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark-mode');
+            } else {
+                // Switch to light mode
+                body.classList.add('light-mode');
+                body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light-mode');
+            }
+            
+            updateThemeIcon();
+        });
+    } else {
+        console.error('Theme toggle button not found');
+    }
 
     // Update Theme Icon
     function updateThemeIcon() {
-        const isLightMode = body.classList.contains('light-mode');
-        themeToggle.innerHTML = isLightMode ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        if (themeToggle) {
+            const isLightMode = document.body.classList.contains('light-mode');
+            console.log('Updating icon for light mode:', isLightMode);
+            themeToggle.innerHTML = isLightMode 
+                ? '<i class="fas fa-sun"></i>' 
+                : '<i class="fas fa-moon"></i>';
+            themeToggle.setAttribute('aria-label', isLightMode 
+                ? 'Switch to dark mode' 
+                : 'Switch to light mode');
+        }
     }
 
-    // Initialize theme icon on page load
-    updateThemeIcon();
+    // Initialize theme on page load
+    initializeTheme();
+
+    // Listen for system theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+            // Only update if user hasn't set a preference
+            body.classList.toggle('light-mode', !e.matches);
+            updateThemeIcon();
+        }
+    });
 
     // Search functionality - comprehensive indexing
     const searchForm = document.getElementById('search-form');
