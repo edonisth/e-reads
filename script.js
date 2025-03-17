@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const bookUpload = document.getElementById('book-upload');
     const mainContent = document.querySelector('.content');
     const sidebar = document.querySelector('.sidebar');
+    const body = document.body;
     
     // Initialize logo click handler
     const logoLink = document.querySelector('.logo-text');
@@ -321,26 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Sidebar toggle functionality
-    const toggleButton = document.getElementById('sidebarToggle');
-    const icon = toggleButton.querySelector('i');
-
-    function toggleSidebar() {
-        const isExpanding = !sidebar.classList.contains('active');
-        sidebar.classList.toggle('active');
-        
-        // Toggle collapsed class for proper content centering
-        sidebar.classList.toggle('collapsed', !isExpanding);
-        
-        // Update icon to show the next action (> for expand, < for collapse)
-        icon.className = isExpanding ? 'fas fa-chevron-left' : 'fas fa-chevron-right';
-    }
-
-    // Set initial icon state and classes
-    icon.className = 'fas fa-chevron-right';
-    sidebar.classList.add('collapsed'); // Ensure sidebar starts collapsed
-
-    // Check if sidebar is scrolled to bottom
+    // Initialize sidebar scroll detection
     function initSidebarScrollDetection() {
         const sidebar = document.querySelector('.sidebar');
         
@@ -365,22 +347,92 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    toggleButton.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleSidebar();
-    });
+    // Sidebar toggle functionality
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    if (sidebarToggle) {  // Ensure the toggle exists before using it
+        const icon = sidebarToggle.querySelector('i');
 
-    // Update icon when sidebar is closed on resize
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) {
-            sidebar.classList.remove('active');
-            icon.className = 'fas fa-chevron-right';
+        function toggleSidebar() {
+            console.log('Toggle sidebar called'); // Debug
+            const isExpanding = !sidebar.classList.contains('active');
+            sidebar.classList.toggle('active');
+            
+            // Toggle body scroll on mobile
+            if (window.innerWidth <= 768) {
+                body.classList.toggle('sidebar-active', isExpanding);
+            }
+            
+            // Toggle collapsed class for proper content centering
+            sidebar.classList.toggle('collapsed', !isExpanding);
+            
+            // Update icon to show the next action (> for expand, < for collapse)
+            icon.className = isExpanding ? 'fas fa-chevron-left' : 'fas fa-chevron-right';
         }
-    });
+
+        // Set initial icon state and classes
+        icon.className = 'fas fa-chevron-right';
+        sidebar.classList.add('collapsed'); // Ensure sidebar starts collapsed
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768 && 
+                sidebar.classList.contains('active') && 
+                !sidebar.contains(e.target) && 
+                !sidebarToggle.contains(e.target)) {
+                toggleSidebar();
+            }
+        });
+
+        // Handle touch events for better mobile experience
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, false);
+        
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+        
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const swipeDistance = touchEndX - touchStartX;
+            
+            if (Math.abs(swipeDistance) < swipeThreshold) return;
+            
+            if (window.innerWidth <= 768) {
+                if (swipeDistance > 0 && !sidebar.classList.contains('active')) {
+                    // Swipe right, open sidebar
+                    toggleSidebar();
+                } else if (swipeDistance < 0 && sidebar.classList.contains('active')) {
+                    // Swipe left, close sidebar
+                    toggleSidebar();
+                }
+            }
+        }
+
+        sidebarToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            console.log('Sidebar toggle clicked'); // Debug
+            toggleSidebar();
+        });
+
+        // Update sidebar state on resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('active');
+                body.classList.remove('sidebar-active');
+                icon.className = 'fas fa-chevron-right';
+            }
+        });
+    } else {
+        console.error('Sidebar toggle button not found');
+    }
 
     // Theme Toggle Functionality
     const themeToggle = document.getElementById('themeToggle');
-    const body = document.body;
 
     // Check for saved theme in localStorage
     const savedTheme = localStorage.getItem('theme');
