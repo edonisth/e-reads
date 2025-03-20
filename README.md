@@ -1,6 +1,6 @@
 # Edonis Reads: Your Personal Digital Library
 
-![Edonis Reads](https://img.shields.io/badge/Edonis%20Reads-v1.0-blue)
+![Edonis Reads](https://img.shields.io/badge/Edonis%20Reads-v1.2-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 ## 📚 Overview
@@ -9,7 +9,7 @@ Edonis Reads is a personal web application designed to help organize, manage, an
 
 ## ✨ Features
 
-- **Digital Book Library**: Upload and organize your books in a clean, intuitive sidebar.
+- **Digital Book Library**: Upload and organize your books in a clean, intuitive sidebar with beautiful cover thumbnails.
 - **Detailed Book Entries**: Each book includes:
   - Overview/summary
   - Key themes with detailed explanations
@@ -20,6 +20,8 @@ Edonis Reads is a personal web application designed to help organize, manage, an
 - **Full-Text Search**: Quickly find specific highlights across your entire library.
 - **Responsive Design**: Access your library on any device with a beautiful, adaptive interface.
 - **No Backend Required**: All data is stored locally in your browser.
+- **Featured Books Section**: Showcase selected works on your homepage.
+- **Easy Book Addition**: Simple interface for adding new books to your collection.
 
 ## 🖥️ Screenshots
 
@@ -91,16 +93,19 @@ e-reads/
 
 ## 📚 Current Book Collection
 
-The current collection includes works across various genres and time periods:
+The current collection includes over 25 works across various genres and time periods:
 
-- **Philosophy**: Pascal's "Pensées", Nietzsche's "The Birth of Tragedy"
-- **Science Fiction**: Frank Herbert's "Dune" series, Douglas Adams' "The Hitchhiker's Guide to the Galaxy"
+- **Philosophy**: Pascal's "Pensées", Nietzsche's "The Birth of Tragedy" and "Ecce Homo", Burke's "A Philosophical Inquiry Into the Origin of Our Ideas of the Sublime and Beautiful"
+- **Science Fiction**: Frank Herbert's "Dune" trilogy, Douglas Adams' "The Hitchhiker's Guide to the Galaxy", George Orwell's "1984"
+- **Horror & Thriller**: Stephen King's "The Shining" and "On Writing: A Memoir of the Craft"
 - **Transcendentalism**: Thoreau's "Walden & Civil Disobedience"
-- **Technology & Privacy**: Assange's "Cypherpunks", Collier's "Tor"
-- **Economics**: "The Bitcoin Standard"
-- **Literature**: McCarthy's "Blood Meridian", Gogol's "The Nose"
+- **Technology & Privacy**: Assange's "Cypherpunks", Collier's "Tor", Mollick's "Co-Intelligence: Living and Working with AI"
+- **Economics**: Ammous' "The Bitcoin Standard"
+- **Literature**: McCarthy's "Blood Meridian", Gogol's "The Nose", Schnitzler's "Dream Story", Coleridge's "The Rime of the Ancient Mariner"
 - **Classical Works**: Horace's "Odes"
-- **Japanese Literature**: Mishima's "Sun & Steel"
+- **Japanese Literature**: Mishima's "Sun & Steel" and "The Temple of the Golden Pavilion"
+- **Photography & Art**: Sontag's "On Photography"
+- **Poetry**: Pessoa's "Selected Poems"
 
 ## 🛣️ Roadmap
 
@@ -109,6 +114,8 @@ The current collection includes works across various genres and time periods:
 - [ ] Book statistics and reading insights
 - [ ] Tagging system for highlights
 - [ ] Mobile app version
+- [ ] Reading progress tracking
+- [ ] Book recommendations based on themes
 
 ## 🤝 Contributing
 

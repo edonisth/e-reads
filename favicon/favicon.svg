@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Background circle with soft gradient -->
+  <circle cx="32" cy="32" r="32" fill="#432818" />
+  
+  <!-- Open book with curved pages -->
+  <path d="M12,22 C12,18 16,16 22,16 C28,16 31,20 32,22 C33,20 36,16 42,16 C48,16 52,18 52,22 C52,44 52,44 52,44 C52,48 48,46 42,46 C36,46 33,42 32,40 C31,42 28,46 22,46 C16,46 12,48 12,44 C12,44 12,44 12,22 Z" fill="#8b4513" />
+  
+  <!-- Pages with curved spine -->
+  <path d="M16,22 C16,20 18,19 22,19 C26,19 30,22 32,24 C34,22 38,19 42,19 C46,19 48,20 48,22 C48,40 48,40 48,40 C48,42 46,41 42,41 C38,41 34,38 32,36 C30,38 26,41 22,41 C18,41 16,42 16,40 C16,40 16,40 16,22 Z" fill="#f5f5dc" />
+  
+  <!-- Left page text lines -->
+  <path d="M20,26 C20,26 29,26 29,26" stroke="#8b7355" stroke-width="1" stroke-linecap="round" />
+  <path d="M20,30 C20,30 29,30 29,30" stroke="#8b7355" stroke-width="1" stroke-linecap="round" />
+  <path d="M20,34 C20,34 26,34 26,34" stroke="#8b7355" stroke-width="1" stroke-linecap="round" />
+  
+  <!-- Right page text lines -->
+  <path d="M35,26 C35,26 44,26 44,26" stroke="#8b7355" stroke-width="1" stroke-linecap="round" />
+  <path d="M35,30 C35,30 44,30 44,30" stroke="#8b7355" stroke-width="1" stroke-linecap="round" />
+  <path d="M35,34 C35,34 41,34 41,34" stroke="#8b7355" stroke-width="1" stroke-linecap="round" />
+  
+  <!-- Bookmark ribbon -->
+  <path d="M32,14 C32,14 28,16 28,20 C28,20 28,34 28,34 L32,31 L36,34 C36,34 36,20 36,20 C36,16 32,14 32,14 Z" fill="#a52a2a" />
+  
+  <!-- Gold corner embellishment -->
+  <path d="M17,20 L22,19 L21,24 Z" fill="#d4af37" />
+  <path d="M47,20 L42,19 L43,24 Z" fill="#d4af37" />
+  
+  <!-- Reading glasses overlay -->
+  <g transform="translate(25, 27)">
+    <circle cx="2" cy="2" r="5" fill="none" stroke="#d4af37" stroke-width="1.2" />
+    <circle cx="12" cy="2" r="5" fill="none" stroke="#d4af37" stroke-width="1.2" />
+    <path d="M7,2 L7,2" stroke="#d4af37" stroke-width="1.5" />
+    <path d="M-3,0 L-1,2" stroke="#d4af37" stroke-width="1.2" />
+    <path d="M17,0 L19,2" stroke="#d4af37" stroke-width="1.2" />
+  </g>
+</svg> 
