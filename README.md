@@ -65,11 +65,10 @@ Then open `http://localhost:8000` (or the port provided) in your browser.
 
 ## 📖 How to Use
 
-1. **Adding Books**: Click the "+" button in the sidebar to add a new book.
-2. **Book Details**: Fill in the title, author, and upload a cover image.
-3. **Adding Highlights**: Add themes and quotes from your book.
-4. **Searching**: Use the search bar to find specific highlights across all books.
-5. **Dark/Light Mode**: Toggle between dark and light mode using the moon/sun icon.
+1. **Book Details**: Fill in the title, author, and upload a cover image.
+2. **Adding Highlights**: Add themes and quotes from your book.
+3. **Searching**: Use the search bar to find specific highlights across all books.
+4. **Dark/Light Mode**: Toggle between dark and light mode using the moon/sun icon.
 
 ## 🧩 Project Structure
 
