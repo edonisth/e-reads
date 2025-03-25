@@ -112,7 +112,43 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // Show the selected book content
-        const activeBookContent = document.getElementById(bookId);
+        let activeBookContent = document.getElementById(bookId);
+        
+        // If the book content doesn't exist, create it dynamically
+        if (!activeBookContent) {
+            console.log('Creating missing book content for:', bookId);
+            
+            // Get book info from the sidebar link
+            const bookLink = document.querySelector(`.book-link[data-book-id="${bookId}"]`);
+            if (bookLink) {
+                const bookTitle = bookLink.querySelector('.book-title').textContent;
+                const bookAuthor = bookLink.querySelector('.book-author').textContent;
+                const bookCover = bookLink.querySelector('img').getAttribute('src');
+                
+                // Create a simple book content element
+                const bookData = {
+                    id: bookId,
+                    title: bookTitle,
+                    author: bookAuthor,
+                    coverUrl: bookCover,
+                    overview: `This book's full content hasn't been added yet.`,
+                    themes: [
+                        {
+                            title: "Sample Theme",
+                            description: ["This is a placeholder theme."]
+                        }
+                    ],
+                    quotes: ["This is a placeholder quote for this book."]
+                };
+                
+                // Add the book content to the main content
+                addBookToMainContent(bookData);
+                
+                // Get the newly created element
+                activeBookContent = document.getElementById(bookId);
+            }
+        }
+        
         if (activeBookContent) {
             console.log('Found book content element:', bookId);
             activeBookContent.classList.add('active');
