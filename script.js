@@ -469,81 +469,89 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Sidebar toggle button not found');
     }
 
-    // Theme Toggle Functionality
-    const themeToggle = document.querySelector('.theme-toggle');
-    console.log('Theme toggle element:', themeToggle);
-
-    // Initialize the default class on body
-    function initializeTheme() {
-        // Default to dark-mode (site's original design)
+    // Simple Theme Toggle Functionality - Complete Rewrite
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM fully loaded - setting up theme toggle');
+        
+        const themeToggle = document.querySelector('.theme-toggle');
         const body = document.body;
         
-        // Check for saved theme in localStorage
-        const savedTheme = localStorage.getItem('theme');
-        console.log('Saved theme:', savedTheme);
-        
-        if (savedTheme === 'light-mode') {
-            body.classList.add('light-mode');
-            body.classList.remove('dark-mode');
-        } else {
-            // Default to dark-mode
-            body.classList.add('dark-mode');
-            body.classList.remove('light-mode');
+        if (!themeToggle) {
+            console.error('Theme toggle button not found');
+            return;
         }
         
-        // Update the icon based on current theme
-        updateThemeIcon();
-    }
-
-    // Toggle Theme
-    if (themeToggle) {
-        themeToggle.addEventListener('click', function() {
-            console.log('Theme toggle clicked');
-            const body = document.body;
+        console.log('Theme toggle button found:', themeToggle);
+        
+        // Apply theme based on localStorage or default
+        function applyTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            console.log('Saved theme from localStorage:', savedTheme);
             
-            // Toggle between light and dark mode
-            if (body.classList.contains('light-mode')) {
-                // Switch to dark mode
-                body.classList.remove('light-mode');
-                body.classList.add('dark-mode');
-                localStorage.setItem('theme', 'dark-mode');
-            } else {
-                // Switch to light mode
+            if (savedTheme === 'light-mode') {
                 body.classList.add('light-mode');
-                body.classList.remove('dark-mode');
-                localStorage.setItem('theme', 'light-mode');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                console.log('Light mode applied');
+            } else {
+                body.classList.remove('light-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                console.log('Dark mode applied (default)');
             }
-            
-            updateThemeIcon();
-        });
-    } else {
-        console.error('Theme toggle button not found');
-    }
-
-    // Update Theme Icon
-    function updateThemeIcon() {
-        if (themeToggle) {
-            const isLightMode = document.body.classList.contains('light-mode');
-            console.log('Updating icon for light mode:', isLightMode);
-            themeToggle.innerHTML = isLightMode 
-                ? '<i class="fas fa-sun"></i>' 
-                : '<i class="fas fa-moon"></i>';
-            themeToggle.setAttribute('aria-label', isLightMode 
-                ? 'Switch to dark mode' 
-                : 'Switch to light mode');
         }
-    }
+        
+        // Toggle current theme
+        function toggleTheme() {
+            console.log('Toggling theme...');
+            if (body.classList.contains('light-mode')) {
+                // Switch to dark
+                body.classList.remove('light-mode');
+                localStorage.setItem('theme', 'dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                console.log('Switched to dark mode');
+            } else {
+                // Switch to light
+                body.classList.add('light-mode');
+                localStorage.setItem('theme', 'light-mode');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                console.log('Switched to light mode');
+            }
+        }
+        
+        // Apply theme immediately
+        applyTheme();
+        
+        // Add direct click handler
+        themeToggle.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Theme toggle clicked!');
+            toggleTheme();
+            return false;
+        };
+        
+        console.log('Theme toggle setup complete');
+    });
 
-    // Initialize theme on page load
-    initializeTheme();
+    // Theme is now initialized in the DOMContentLoaded event handler above
 
     // Listen for system theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        if (!localStorage.getItem('theme')) {
-            // Only update if user hasn't set a preference
-            body.classList.toggle('light-mode', !e.matches);
-            updateThemeIcon();
-        }
+    document.addEventListener('DOMContentLoaded', function() {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                // Only update if user hasn't set a preference
+                const body = document.body;
+                body.classList.toggle('light-mode', !e.matches);
+                
+                // Update icon based on current theme
+                const themeToggle = document.querySelector('.theme-toggle');
+                if (themeToggle) {
+                    const isLightMode = body.classList.contains('light-mode');
+                    themeToggle.innerHTML = isLightMode 
+                        ? '<i class="fas fa-moon"></i>' 
+                        : '<i class="fas fa-sun"></i>';
+                }
+            }
+        });
     });
 
     // Search functionality - comprehensive indexing
